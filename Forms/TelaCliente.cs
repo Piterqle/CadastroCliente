@@ -1,8 +1,8 @@
 namespace CadastroCliente
 {
-    public partial class Form1 : Form
+    public partial class TelaCliente : Form
     {
-        public Form1()
+        public TelaCliente()
         {
             InitializeComponent();
         }
