@@ -1,6 +1,7 @@
 using CadastroCliente.Aplication.Facade;
 using CadastroCliente.Infrastructure.Repositories;
 using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace CadastroCliente
 {
@@ -34,13 +35,37 @@ namespace CadastroCliente
             }
         }
 
+        private void txb_contato_textChanged(object sender, EventArgs e)
+        {
+            TextBox txb = (TextBox)sender;
+            string documento = (string)txb.Text;
+            txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{5})(\d{4})$", "($1) $2-$3");
+        }
+
         private void txb_documento_TextChanged(object sender, EventArgs e)
         {
-            if (!rb_Cnpj.Checked)
+            TextBox txb = (TextBox)sender;
+            if (rb_Cpf.Checked)
             {
-                string documento = txb_documento.Text;
-                documento =  Regex.Replace(documento, @"^(\d{3})(\d{3})(\d{3})(\d)$", "$1.$2.$3-$4");
+                txb.MaxLength = 13;
+                string documento = txb.Text;
+                txb.Text =  Regex.Replace(documento, @"^(\d{3})(\d{3})(\d{3})(\d{2})$", "$1.$2.$3-$4");
+
+            } else if (rb_Cnpj.Checked)
+            {
+                txb.MaxLength = 18;
+                string documento = txb.Text;
+                txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$", "$1.$2.$3/$4-$5");
             }
+
+        }
+
+        private void rb_Changed(object sender, EventArgs e)
+        {
+            RadioButton radioButton = (RadioButton)sender;
+
+            if (!radioButton.Checked) txb_documento.PlaceholderText = "xxx.xxx.xxx-xx";
+            else if (radioButton.Checked) txb_documento.PlaceholderText = "xx.xxx.xxx/xxxx-xx";
         }
     }
 }

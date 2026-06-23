@@ -171,6 +171,7 @@
             rb_Cnpj.TabIndex = 16;
             rb_Cnpj.Text = "CNPJ";
             rb_Cnpj.UseVisualStyleBackColor = true;
+            rb_Cnpj.CheckedChanged += rb_Changed;
             // 
             // bt_adicionar
             // 

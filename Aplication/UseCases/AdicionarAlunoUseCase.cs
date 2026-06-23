@@ -19,10 +19,9 @@ namespace CadastroCliente.Aplication.UseCases
         //Executável da Classe
         public void execute(string name, DateTime dateTime, string contato, string endereco, string documento)
         {
-            Console.WriteLine("Chegou");
             List<string> dados  = [name, dateTime.ToString(), contato, endereco, documento];
 
-            if (dados.Any(items => items is null)) throw new Exception("Preencha os Campos");
+            if (dados.Any(items => items == "")) throw new Exception("Preencha os Campos");
 
             if (contato.Length < 12) throw new Exception("Número de Telefone inválido");
 
