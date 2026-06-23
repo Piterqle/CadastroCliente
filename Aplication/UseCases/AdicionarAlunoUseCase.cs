@@ -5,16 +5,17 @@ using System.Text;
 
 namespace CadastroCliente.Aplication.UseCases
 {
-    public class AdicionarAlunoUseCase()
+    public class AdicionarAlunoUseCase //Classe para o Caso de Uso de adicionar Alunos 
     {
         private readonly ClienteRepository _clienteRepository;
 
-        public AdicionarUseCase(ClienteRepository repository)
+        public AdicionarAlunoUseCase(ClienteRepository repository) //Construtor da classe
         {
                 _clienteRepository = repository;
             
         }
 
+        //Executável da Classe
         public void execute(string name, DateTime dateTime, string contato, string endereco, string documento)
         {
             
