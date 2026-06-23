@@ -35,9 +35,9 @@
             lb_DataNasc = new Label();
             dtp_DataNasc = new DateTimePicker();
             label1 = new Label();
-            textBox1 = new TextBox();
+            txb_endereco = new TextBox();
             lb_Documento = new Label();
-            textBox2 = new TextBox();
+            txb_documento = new TextBox();
             rb_Cpf = new RadioButton();
             rb_Cnpj = new RadioButton();
             bt_adicionar = new Button();
@@ -60,6 +60,7 @@
             txb_Nome.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txb_Nome.Location = new Point(30, 56);
             txb_Nome.Name = "txb_Nome";
+            txb_Nome.PlaceholderText = "xxxxxx";
             txb_Nome.Size = new Size(196, 27);
             txb_Nome.TabIndex = 2;
             // 
@@ -70,9 +71,9 @@
             lb_Contato.Font = new Font("Segoe UI", 12F);
             lb_Contato.Location = new Point(232, 26);
             lb_Contato.Name = "lb_Contato";
-            lb_Contato.Size = new Size(65, 21);
+            lb_Contato.Size = new Size(147, 21);
             lb_Contato.TabIndex = 5;
-            lb_Contato.Text = "Contato";
+            lb_Contato.Text = "Telefone de Contato";
             // 
             // txb_Contato
             // 
@@ -80,6 +81,7 @@
             txb_Contato.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txb_Contato.Location = new Point(232, 56);
             txb_Contato.Name = "txb_Contato";
+            txb_Contato.PlaceholderText = "(xx) xxxxx-xxxx";
             txb_Contato.Size = new Size(196, 27);
             txb_Contato.TabIndex = 4;
             // 
@@ -115,14 +117,14 @@
             label1.TabIndex = 10;
             label1.Text = "Endereço";
             // 
-            // textBox1
+            // txb_endereco
             // 
-            textBox1.Anchor = AnchorStyles.Top;
-            textBox1.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(30, 134);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(196, 27);
-            textBox1.TabIndex = 9;
+            txb_endereco.Anchor = AnchorStyles.Top;
+            txb_endereco.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txb_endereco.Location = new Point(30, 134);
+            txb_endereco.Name = "txb_endereco";
+            txb_endereco.Size = new Size(196, 27);
+            txb_endereco.TabIndex = 9;
             // 
             // lb_Documento
             // 
@@ -135,19 +137,22 @@
             lb_Documento.TabIndex = 12;
             lb_Documento.Text = "Documeto";
             // 
-            // textBox2
+            // txb_documento
             // 
-            textBox2.Anchor = AnchorStyles.Top;
-            textBox2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox2.Location = new Point(232, 134);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(196, 27);
-            textBox2.TabIndex = 11;
+            txb_documento.Anchor = AnchorStyles.Top;
+            txb_documento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txb_documento.Location = new Point(232, 134);
+            txb_documento.Name = "txb_documento";
+            txb_documento.PlaceholderText = "xxx.xxx.xxx-xx";
+            txb_documento.Size = new Size(196, 27);
+            txb_documento.TabIndex = 11;
+            txb_documento.TextChanged += txb_documento_TextChanged;
             // 
             // rb_Cpf
             // 
             rb_Cpf.Anchor = AnchorStyles.Top;
             rb_Cpf.AutoSize = true;
+            rb_Cpf.Checked = true;
             rb_Cpf.Location = new Point(320, 109);
             rb_Cpf.Name = "rb_Cpf";
             rb_Cpf.Size = new Size(46, 19);
@@ -164,7 +169,6 @@
             rb_Cnpj.Name = "rb_Cnpj";
             rb_Cnpj.Size = new Size(52, 19);
             rb_Cnpj.TabIndex = 16;
-            rb_Cnpj.TabStop = true;
             rb_Cnpj.Text = "CNPJ";
             rb_Cnpj.UseVisualStyleBackColor = true;
             // 
@@ -179,6 +183,7 @@
             bt_adicionar.TabIndex = 17;
             bt_adicionar.Text = "Adicionar";
             bt_adicionar.UseVisualStyleBackColor = false;
+            bt_adicionar.Click += bt_adicionar_Click;
             // 
             // TelaCliente
             // 
@@ -189,9 +194,9 @@
             Controls.Add(rb_Cnpj);
             Controls.Add(rb_Cpf);
             Controls.Add(lb_Documento);
-            Controls.Add(textBox2);
+            Controls.Add(txb_documento);
             Controls.Add(label1);
-            Controls.Add(textBox1);
+            Controls.Add(txb_endereco);
             Controls.Add(dtp_DataNasc);
             Controls.Add(lb_DataNasc);
             Controls.Add(lb_Contato);
@@ -213,9 +218,9 @@
         private Label lb_DataNasc;
         private DateTimePicker dtp_DataNasc;
         private Label label1;
-        private TextBox textBox1;
+        private TextBox txb_endereco;
         private Label lb_Documento;
-        private TextBox textBox2;
+        private TextBox txb_documento;
         private RadioButton rb_Cpf;
         private RadioButton rb_Cnpj;
         private Button bt_adicionar;

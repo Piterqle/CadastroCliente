@@ -17,15 +17,18 @@ namespace CadastroCliente.Domain.Entities
         public string Endereco { get; private set; }
 
         public string Documento { get; private set; }
+        public bool Status { get; private set;  }
 
-        public Cliente(Guid Id, string nome, DateTime dataNasc, string contato, string endereco, string documento)
+        public Cliente(Guid Id, string nome, DateTime dataNasc, string contato, string endereco, string documento, bool status)
         {
             this.idCliente = Id;
             this.Nome = nome;
             this.DataNascimento = dataNasc;
             this.Contato = contato;
             this.Endereco = endereco;
-            this.Documento = documento; 
+            this.Documento = documento;
+            this.Status = status;
+
         }
     }
 }

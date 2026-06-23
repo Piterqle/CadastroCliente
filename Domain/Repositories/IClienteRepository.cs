@@ -6,6 +6,6 @@ namespace CadastroCliente.Domain.Repositories
 {
     public interface IClienteRepository
     {
-        Task<string>AddCliente(Guid Id, string nome, DateTime dataNasc, string contato, string endereco, string documento);
+        Task<string>AddCliente(string nome, DateTime dataNasc, string contato, string endereco, string documento);
     }
 }

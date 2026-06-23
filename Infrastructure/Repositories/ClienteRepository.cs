@@ -7,9 +7,9 @@ namespace CadastroCliente.Infrastructure.Repositories
 {
     public class ClienteRepository : IClienteRepository
     {
-        public Task<string> AddCliente(Guid Id, string nome, DateTime dataNasc, string contato, string endereco, string documento)
+        public Task<string> AddCliente(string nome, DateTime dataNasc, string contato, string endereco, string documento)
         {
             throw new NotImplementedException();
-        }
+        }   
     }
 }

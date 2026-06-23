@@ -1,6 +1,5 @@
-using CadastroCliente.Forms;
 
-namespace CadastroCliente.Forms
+namespace CadastroCliente.Presentation.Forms
 {
     internal static class Program
     {
@@ -13,6 +12,7 @@ namespace CadastroCliente.Forms
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
+            DependencyServices.Configure();
             Application.Run(new TelaCliente());
         }
     }
