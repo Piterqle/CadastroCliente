@@ -1,4 +1,5 @@
-﻿using CadastroCliente.Domain.Repositories;
+﻿using CadastroCliente.Domain.Entities;
+using CadastroCliente.Domain.Repositories;
 using CadastroCliente.Infrastructure.Repositories;
 using System;
 using System.Collections.Generic;
@@ -26,8 +27,8 @@ namespace CadastroCliente.Aplication.UseCases
             if (contato.Length < 12) throw new Exception("Número de Telefone inválido");
 
 
-            
-            _clienteRepository.AddCliente(name, dateTime, contato, endereco, documento);
+            Cliente cliente = new Cliente(name, dateTime, endereco, contato, documento, true);
+            _clienteRepository.AddCliente(cliente);
         }
     }
 }

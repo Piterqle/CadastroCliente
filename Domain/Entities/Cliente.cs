@@ -8,26 +8,27 @@ namespace CadastroCliente.Domain.Entities
     {
         internal Guid idCliente { get; private set; }
 
-        public string Nome { get; private set; }
+        public string nomeCliente { get; private set; }
 
-        public DateTime DataNascimento { get; private set; }
+        public DateTime dataCliente { get; private set; }
 
-        public string Contato { get; private set; }
+        public string contatoCliente { get; private set; }
 
-        public string Endereco { get; private set; }
+        public string enderecoCliente { get; private set; }
 
-        public string Documento { get; private set; }
-        public bool Status { get; private set;  }
+        public string documentoCliente { get; private set; }
+        
+        public bool statusCliente { get; private set;  }
 
-        public Cliente(Guid Id, string nome, DateTime dataNasc, string contato, string endereco, string documento, bool status)
+        public Cliente(string nome, DateTime dataNasc, string contato, string endereco, string documento, bool status)
         {
-            this.idCliente = Id;
-            this.Nome = nome;
-            this.DataNascimento = dataNasc;
-            this.Contato = contato;
-            this.Endereco = endereco;
-            this.Documento = documento;
-            this.Status = status;
+            
+            this.nomeCliente = nome;
+            this.dataCliente = dataNasc;
+            this.contatoCliente = contato;
+            this.enderecoCliente = endereco;
+            this.documentoCliente = documento;
+            this.statusCliente = status;
 
         }
     }
