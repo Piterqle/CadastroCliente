@@ -1,7 +1,7 @@
 using CadastroCliente.Aplication.Facade;
 using CadastroCliente.Infrastructure.Repositories;
 using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+
 
 namespace CadastroCliente
 {
@@ -38,6 +38,7 @@ namespace CadastroCliente
         private void txb_contato_textChanged(object sender, EventArgs e)
         {
             TextBox txb = (TextBox)sender;
+            txb.MaxLength = 13;
             string documento = (string)txb.Text;
             txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{5})(\d{4})$", "($1) $2-$3");
         }

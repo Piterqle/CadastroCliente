@@ -1,0 +1,56 @@
+﻿using Microsoft.Data.Sqlite;
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace CadastroCliente
+{
+    public class Database
+    {
+        private readonly string connString;
+        private SqliteConnection _connection;
+
+        public Database(string connString)
+        {
+            this.connString = connString;
+        }
+
+        private SqliteConnection Connection
+        {
+            get
+            {
+                if (_connection == null)
+                {
+                    _connection = new SqliteConnection(connString);
+                    _connection.Open();
+                }
+                
+                return _connection;
+
+            }
+        }
+
+
+        public SqliteConnection Opener() => Connection;
+
+        public void ExecuteQuery(string query)
+        {
+           
+            var command = _connection.CreateCommand();
+            command.CommandText = """"
+                        Create Table If Not Exists Cliente(
+                            idCliente int Auto_Increment Primary Key ,
+                            nomeCliente varchar(250) Not Null,
+                            dataCliente date Not Null,
+                            contatoCliente varchar(13) Not Null,
+                            enderecoCliente varchar(250) Not Null,
+                            documentoCliente varchar(18) Not Null,
+                            statusCliente boolean Not Null
+                        )
+                        """";
+            command.ExecuteNonQuery();
+            MessageBox.Show("Query Executada com Sucesso");
+        }
+        
+    }
+}

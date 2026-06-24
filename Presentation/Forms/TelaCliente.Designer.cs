@@ -84,6 +84,7 @@
             txb_Contato.PlaceholderText = "(xx) xxxxx-xxxx";
             txb_Contato.Size = new Size(196, 27);
             txb_Contato.TabIndex = 4;
+            txb_Contato.TextChanged += txb_contato_textChanged;
             // 
             // lb_DataNasc
             // 

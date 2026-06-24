@@ -16,10 +16,12 @@ namespace CadastroCliente
         private static string _connectionString;
         private static readonly object _lock = new object();
 
-        public static void Configure()
+        public static void Configure(string connectionString)
         {
             lock (_lock)
             {
+                _connectionString = connectionString;
+
                 _provider?.Dispose();
                 _provider = null;
                 _provider = BuidServiceProvider();
@@ -28,6 +30,11 @@ namespace CadastroCliente
         public static ServiceProvider BuidServiceProvider()
         {
             var services = new ServiceCollection();
+
+            services.AddScoped<Database>(provider =>
+            {
+                return new Database(_connectionString);
+            });
 
             services.AddTransient<IClienteRepository, ClienteRepository>();
 
