@@ -13,7 +13,13 @@ namespace CadastroCliente
 
             _clienteFacade = DependencyServices.Get<ClienteFacade>();
             InitializeComponent();
+            
+        }
+        private async void BuscarCliente(object sender, EventArgs e)
+        {
+            var clientes = await _clienteFacade.BuscarCliente(0);
 
+            Console.WriteLine(clientes);
         }
 
         private async void bt_adicionar_Click(object sender, EventArgs e)

@@ -24,7 +24,7 @@ namespace CadastroCliente
                     _connection = new SqliteConnection(connString);
                     _connection.Open();
                 }
-                
+
                 return _connection;
 
             }
@@ -33,13 +33,13 @@ namespace CadastroCliente
 
         public SqliteConnection Opener() => Connection;
 
-        public void ExecuteQuery(string query)
+        public void ExecuteQuery()
         {
            
             var command = _connection.CreateCommand();
             command.CommandText = """"
                         Create Table If Not Exists Cliente(
-                            idCliente int Auto_Increment Primary Key ,
+                            idCliente INTEGER Primary Key ,
                             nomeCliente varchar(250) Not Null,
                             dataCliente date Not Null,
                             contatoCliente varchar(13) Not Null,

@@ -18,18 +18,19 @@ namespace CadastroCliente.Domain.Entities
 
         public string documentoCliente { get; private set; }
         
-        public bool statusCliente { get; private set;  }
+        public bool  statusCliente { get; private set;  }
 
-        public Cliente(string nome, DateTime dataNasc, string contato, string endereco, string documento, bool status)
+        public Cliente(string nomeCliente, DateTime dataCliente, string contatoCliente, string enderecoCliente, string documentoCliente, bool statusCliente)
         {
             
-            this.nomeCliente = nome;
-            this.dataCliente = dataNasc;
-            this.contatoCliente = contato;
-            this.enderecoCliente = endereco;
-            this.documentoCliente = documento;
-            this.statusCliente = status;
+            this.nomeCliente = nomeCliente;
+            this.dataCliente = dataCliente;
+            this.contatoCliente = contatoCliente;
+            this.enderecoCliente = enderecoCliente;
+            this.documentoCliente = documentoCliente;
+            this.statusCliente = statusCliente;
 
         }
+
     }
 }

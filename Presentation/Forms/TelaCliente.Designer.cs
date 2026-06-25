@@ -181,11 +181,11 @@
             bt_adicionar.FlatStyle = FlatStyle.Flat;
             bt_adicionar.Location = new Point(463, 137);
             bt_adicionar.Name = "bt_adicionar";
-            bt_adicionar.Size = new Size(147, 23);
+            bt_adicionar.Size = new Size(147, 24);
             bt_adicionar.TabIndex = 17;
             bt_adicionar.Text = "Adicionar";
             bt_adicionar.UseVisualStyleBackColor = false;
-            bt_adicionar.Click += bt_adicionar_Click;
+            bt_adicionar.Click += BuscarCliente;
             // 
             // TelaCliente
             // 
