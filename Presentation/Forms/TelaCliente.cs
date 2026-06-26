@@ -8,27 +8,26 @@ namespace CadastroCliente
     public partial class TelaCliente : Form
     {
         private readonly ClienteFacade _clienteFacade;
+        private List<Object> clientes; 
         public TelaCliente()
         {
 
             _clienteFacade = DependencyServices.Get<ClienteFacade>();
             InitializeComponent();
             BuscarCliente();
-
         }
         private async void BuscarCliente(object sender = null, EventArgs e = null)
         {
             var clientes = await _clienteFacade.BuscarCliente(0);
 
             // Loop para adicionar as Linhas de Acordo com os Dados do Cliente
-            if (clientes != null)
+            if (clientes == null) return;
+            
+            foreach (var cliente in clientes)
             {
-                foreach (var cliente in clientes)
-                {
-                    dg_Clientes.Rows.Add(
-                        cliente.nomeCliente, cliente.dataCliente, cliente.contatoCliente, cliente.enderecoCliente,
-                        cliente.documentoCliente, cliente.statusCliente ? "Ativo" : "Cancelado");
-                }
+                dg_Clientes.Rows.Add(
+                    cliente.nomeCliente, cliente.dataCliente, cliente.contatoCliente, cliente.enderecoCliente,
+                    cliente.documentoCliente, cliente.statusCliente ? "Ativo" : "Cancelado");
             }
         }
 
@@ -96,6 +95,28 @@ namespace CadastroCliente
                 else if (cellValue == "Cancelado") e.CellStyle.BackColor = Color.Red;
 
             }
+        }
+
+
+        // Criando Fução para Cancelar e Editar o Cliente.
+        private void bt_cancelar_Click(object sender, EventArgs e)
+        {
+            if(dg_Clientes.SelectedRows.Count <= 0)
+            {
+                MessageBox.Show("Selecione uma Linha", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            };
+
+            Button button = (Button)sender;
+            
+            if(button.Name == "bt_cancelar")
+            {
+                var cliente = dg_Clientes.SelectedRows[0].Cells[0].Value.ToString();
+
+
+            }
+
+
         }
     }
 }

@@ -42,13 +42,15 @@
             rb_Cnpj = new RadioButton();
             bt_adicionar = new Button();
             dg_Clientes = new DataGridView();
-            panel1 = new Panel();
             col_NomeCliente = new DataGridViewTextBoxColumn();
             col_DataCliente = new DataGridViewTextBoxColumn();
             col_contatoCliente = new DataGridViewTextBoxColumn();
             col_EnderecoCliente = new DataGridViewTextBoxColumn();
             col_DocumentoClietne = new DataGridViewTextBoxColumn();
             col_StatusCliente = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
+            bt_cancelar = new Button();
+            bt_editar = new Button();
             ((System.ComponentModel.ISupportInitialize)dg_Clientes).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -215,16 +217,6 @@
             dg_Clientes.TabIndex = 18;
             dg_Clientes.CellFormatting += dg_Clientes_CellFormatting;
             // 
-            // panel1
-            // 
-            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            panel1.BackColor = SystemColors.ScrollBar;
-            panel1.Controls.Add(dg_Clientes);
-            panel1.Location = new Point(12, 194);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(776, 244);
-            panel1.TabIndex = 19;
-            // 
             // col_NomeCliente
             // 
             col_NomeCliente.HeaderText = "Nome ";
@@ -261,6 +253,45 @@
             col_StatusCliente.Name = "col_StatusCliente";
             col_StatusCliente.ReadOnly = true;
             // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.BackColor = SystemColors.ScrollBar;
+            panel1.Controls.Add(bt_cancelar);
+            panel1.Controls.Add(bt_editar);
+            panel1.Controls.Add(dg_Clientes);
+            panel1.Location = new Point(12, 194);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(776, 244);
+            panel1.TabIndex = 19;
+            // 
+            // bt_cancelar
+            // 
+            bt_cancelar.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            bt_cancelar.AutoSize = true;
+            bt_cancelar.BackColor = Color.Red;
+            bt_cancelar.FlatStyle = FlatStyle.Flat;
+            bt_cancelar.Location = new Point(171, 14);
+            bt_cancelar.Margin = new Padding(10, 3, 3, 3);
+            bt_cancelar.MaximumSize = new Size(200, 27);
+            bt_cancelar.Name = "bt_cancelar";
+            bt_cancelar.Size = new Size(131, 27);
+            bt_cancelar.TabIndex = 20;
+            bt_cancelar.Text = "Cancelar";
+            bt_cancelar.UseVisualStyleBackColor = false;
+            bt_cancelar.Click += bt_cancelar_Click;
+            // 
+            // bt_editar
+            // 
+            bt_editar.BackColor = Color.Yellow;
+            bt_editar.FlatStyle = FlatStyle.Flat;
+            bt_editar.Location = new Point(27, 14);
+            bt_editar.Name = "bt_editar";
+            bt_editar.Size = new Size(131, 27);
+            bt_editar.TabIndex = 19;
+            bt_editar.Text = "Editar";
+            bt_editar.UseVisualStyleBackColor = false;
+            // 
             // TelaCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -284,6 +315,7 @@
             Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)dg_Clientes).EndInit();
             panel1.ResumeLayout(false);
+            panel1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -311,5 +343,7 @@
         private DataGridViewTextBoxColumn col_EnderecoCliente;
         private DataGridViewTextBoxColumn col_DocumentoClietne;
         private DataGridViewTextBoxColumn col_StatusCliente;
+        private Button bt_editar;
+        private Button bt_cancelar;
     }
 }
