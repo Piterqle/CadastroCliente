@@ -23,15 +23,13 @@ namespace CadastroCliente.Infrastructure.Repositories
             using(var connection = _conn.Opener())
             {
 
+                // Query que busca uma pessoa em específico ou puxar todas. 
                 string query = "Select nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, Cast(statusCliente as Bit) statusCliente from Cliente " + parametros;
 
                 var res = await connection.QueryAsync(query);
 
-               
-
+                // Formartar o resultado para Objeto e coloca-lo na Lista
                 var clientes = new List<Cliente>();
-
-                Console.WriteLine(res.ToString());
 
                 foreach (var cliente in res)
                 {
@@ -54,6 +52,8 @@ namespace CadastroCliente.Infrastructure.Repositories
             
             using(var connection = _conn.Opener())
             {
+
+                // Query para adicionar os Clientes
                 const string query = @" Insert Into Cliente
                     (nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, statusCliente)
                     Values

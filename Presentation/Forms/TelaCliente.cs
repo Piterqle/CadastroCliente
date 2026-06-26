@@ -13,13 +13,23 @@ namespace CadastroCliente
 
             _clienteFacade = DependencyServices.Get<ClienteFacade>();
             InitializeComponent();
-            
+            BuscarCliente();
+
         }
-        private async void BuscarCliente(object sender, EventArgs e)
+        private async void BuscarCliente(object sender = null, EventArgs e = null)
         {
             var clientes = await _clienteFacade.BuscarCliente(0);
 
-            Console.WriteLine(clientes);
+            // Loop para adicionar as Linhas de Acordo com os Dados do Cliente
+            if (clientes != null)
+            {
+                foreach (var cliente in clientes)
+                {
+                    dg_Clientes.Rows.Add(
+                        cliente.nomeCliente, cliente.dataCliente, cliente.contatoCliente, cliente.enderecoCliente,
+                        cliente.documentoCliente, cliente.statusCliente ? "Ativo" : "Cancelado");
+                }
+            }
         }
 
         private async void bt_adicionar_Click(object sender, EventArgs e)
@@ -29,7 +39,7 @@ namespace CadastroCliente
 
                 string nome = txb_Nome.Text;
                 string contato = txb_Contato.Text;
-                DateTime dataNasc = dtp_DataNasc.Value;
+                DateTime dataNasc = dtp_DataNasc.Value.ToLocalTime().Date;
                 string endereco = txb_endereco.Text;
                 string documento = txb_documento.Text;
 
@@ -56,9 +66,10 @@ namespace CadastroCliente
             {
                 txb.MaxLength = 13;
                 string documento = txb.Text;
-                txb.Text =  Regex.Replace(documento, @"^(\d{3})(\d{3})(\d{3})(\d{2})$", "$1.$2.$3-$4");
+                txb.Text = Regex.Replace(documento, @"^(\d{3})(\d{3})(\d{3})(\d{2})$", "$1.$2.$3-$4");
 
-            } else if (rb_Cnpj.Checked)
+            }
+            else if (rb_Cnpj.Checked)
             {
                 txb.MaxLength = 18;
                 string documento = txb.Text;
@@ -73,6 +84,18 @@ namespace CadastroCliente
 
             if (!radioButton.Checked) txb_documento.PlaceholderText = "xxx.xxx.xxx-xx";
             else if (radioButton.Checked) txb_documento.PlaceholderText = "xx.xxx.xxx/xxxx-xx";
+        }
+
+        private void dg_Clientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (dg_Clientes.Columns[e.ColumnIndex].Name == "col_StatusCliente" && e.Value != null)
+            {
+                string cellValue = e.Value.ToString();
+
+                if (cellValue == "Ativo") e.CellStyle.BackColor = Color.LightGreen;
+                else if (cellValue == "Cancelado") e.CellStyle.BackColor = Color.Red;
+
+            }
         }
     }
 }

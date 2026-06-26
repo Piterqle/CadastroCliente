@@ -41,6 +41,16 @@
             rb_Cpf = new RadioButton();
             rb_Cnpj = new RadioButton();
             bt_adicionar = new Button();
+            dg_Clientes = new DataGridView();
+            col_NomeCliente = new DataGridViewTextBoxColumn();
+            col_DataCliente = new DataGridViewTextBoxColumn();
+            col_contatoCliente = new DataGridViewTextBoxColumn();
+            col_EnderecoCliente = new DataGridViewTextBoxColumn();
+            col_DocumentoClietne = new DataGridViewTextBoxColumn();
+            col_StatusCliente = new DataGridViewTextBoxColumn();
+            panel1 = new Panel();
+            ((System.ComponentModel.ISupportInitialize)dg_Clientes).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // lb_Nome
@@ -187,11 +197,70 @@
             bt_adicionar.UseVisualStyleBackColor = false;
             bt_adicionar.Click += BuscarCliente;
             // 
+            // dg_Clientes
+            // 
+            dg_Clientes.AllowUserToAddRows = false;
+            dg_Clientes.AllowUserToDeleteRows = false;
+            dg_Clientes.AllowUserToOrderColumns = true;
+            dg_Clientes.AllowUserToResizeColumns = false;
+            dg_Clientes.AllowUserToResizeRows = false;
+            dg_Clientes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dg_Clientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dg_Clientes.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
+            dg_Clientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dg_Clientes.Columns.AddRange(new DataGridViewColumn[] { col_NomeCliente, col_DataCliente, col_contatoCliente, col_EnderecoCliente, col_DocumentoClietne, col_StatusCliente });
+            dg_Clientes.Location = new Point(18, 47);
+            dg_Clientes.Name = "dg_Clientes";
+            dg_Clientes.Size = new Size(741, 194);
+            dg_Clientes.TabIndex = 18;
+            dg_Clientes.CellFormatting += dg_Clientes_CellFormatting;
+            // 
+            // col_NomeCliente
+            // 
+            col_NomeCliente.HeaderText = "Nome ";
+            col_NomeCliente.Name = "col_NomeCliente";
+            // 
+            // col_DataCliente
+            // 
+            col_DataCliente.HeaderText = "Data de Nascimento";
+            col_DataCliente.Name = "col_DataCliente";
+            // 
+            // col_contatoCliente
+            // 
+            col_contatoCliente.HeaderText = "Contato";
+            col_contatoCliente.Name = "col_contatoCliente";
+            // 
+            // col_EnderecoCliente
+            // 
+            col_EnderecoCliente.HeaderText = "Endereço";
+            col_EnderecoCliente.Name = "col_EnderecoCliente";
+            // 
+            // col_DocumentoClietne
+            // 
+            col_DocumentoClietne.HeaderText = "Documento";
+            col_DocumentoClietne.Name = "col_DocumentoClietne";
+            // 
+            // col_StatusCliente
+            // 
+            col_StatusCliente.HeaderText = "Status";
+            col_StatusCliente.Name = "col_StatusCliente";
+            // 
+            // panel1
+            // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            panel1.BackColor = SystemColors.ScrollBar;
+            panel1.Controls.Add(dg_Clientes);
+            panel1.Location = new Point(12, 194);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(776, 244);
+            panel1.TabIndex = 19;
+            // 
             // TelaCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(panel1);
             Controls.Add(bt_adicionar);
             Controls.Add(rb_Cnpj);
             Controls.Add(rb_Cpf);
@@ -207,6 +276,8 @@
             Controls.Add(txb_Nome);
             Name = "TelaCliente";
             Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)dg_Clientes).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -226,5 +297,13 @@
         private RadioButton rb_Cpf;
         private RadioButton rb_Cnpj;
         private Button bt_adicionar;
+        private DataGridView dg_Clientes;
+        private Panel panel1;
+        private DataGridViewTextBoxColumn col_NomeCliente;
+        private DataGridViewTextBoxColumn col_DataCliente;
+        private DataGridViewTextBoxColumn col_contatoCliente;
+        private DataGridViewTextBoxColumn col_EnderecoCliente;
+        private DataGridViewTextBoxColumn col_DocumentoClietne;
+        private DataGridViewTextBoxColumn col_StatusCliente;
     }
 }
