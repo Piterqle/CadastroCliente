@@ -42,13 +42,13 @@
             rb_Cnpj = new RadioButton();
             bt_adicionar = new Button();
             dg_Clientes = new DataGridView();
+            panel1 = new Panel();
             col_NomeCliente = new DataGridViewTextBoxColumn();
             col_DataCliente = new DataGridViewTextBoxColumn();
             col_contatoCliente = new DataGridViewTextBoxColumn();
             col_EnderecoCliente = new DataGridViewTextBoxColumn();
             col_DocumentoClietne = new DataGridViewTextBoxColumn();
             col_StatusCliente = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)dg_Clientes).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -215,36 +215,6 @@
             dg_Clientes.TabIndex = 18;
             dg_Clientes.CellFormatting += dg_Clientes_CellFormatting;
             // 
-            // col_NomeCliente
-            // 
-            col_NomeCliente.HeaderText = "Nome ";
-            col_NomeCliente.Name = "col_NomeCliente";
-            // 
-            // col_DataCliente
-            // 
-            col_DataCliente.HeaderText = "Data de Nascimento";
-            col_DataCliente.Name = "col_DataCliente";
-            // 
-            // col_contatoCliente
-            // 
-            col_contatoCliente.HeaderText = "Contato";
-            col_contatoCliente.Name = "col_contatoCliente";
-            // 
-            // col_EnderecoCliente
-            // 
-            col_EnderecoCliente.HeaderText = "Endereço";
-            col_EnderecoCliente.Name = "col_EnderecoCliente";
-            // 
-            // col_DocumentoClietne
-            // 
-            col_DocumentoClietne.HeaderText = "Documento";
-            col_DocumentoClietne.Name = "col_DocumentoClietne";
-            // 
-            // col_StatusCliente
-            // 
-            col_StatusCliente.HeaderText = "Status";
-            col_StatusCliente.Name = "col_StatusCliente";
-            // 
             // panel1
             // 
             panel1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -254,6 +224,42 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(776, 244);
             panel1.TabIndex = 19;
+            // 
+            // col_NomeCliente
+            // 
+            col_NomeCliente.HeaderText = "Nome ";
+            col_NomeCliente.Name = "col_NomeCliente";
+            col_NomeCliente.ReadOnly = true;
+            // 
+            // col_DataCliente
+            // 
+            col_DataCliente.HeaderText = "Data de Nascimento";
+            col_DataCliente.Name = "col_DataCliente";
+            col_DataCliente.ReadOnly = true;
+            // 
+            // col_contatoCliente
+            // 
+            col_contatoCliente.HeaderText = "Contato";
+            col_contatoCliente.Name = "col_contatoCliente";
+            col_contatoCliente.ReadOnly = true;
+            // 
+            // col_EnderecoCliente
+            // 
+            col_EnderecoCliente.HeaderText = "Endereço";
+            col_EnderecoCliente.Name = "col_EnderecoCliente";
+            col_EnderecoCliente.ReadOnly = true;
+            // 
+            // col_DocumentoClietne
+            // 
+            col_DocumentoClietne.HeaderText = "Documento";
+            col_DocumentoClietne.Name = "col_DocumentoClietne";
+            col_DocumentoClietne.ReadOnly = true;
+            // 
+            // col_StatusCliente
+            // 
+            col_StatusCliente.HeaderText = "Status";
+            col_StatusCliente.Name = "col_StatusCliente";
+            col_StatusCliente.ReadOnly = true;
             // 
             // TelaCliente
             // 
