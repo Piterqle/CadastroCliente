@@ -17,7 +17,7 @@ namespace CadastroCliente.Infrastructure.Repositories
             _conn = conn;
         }
 
-        public async Task<List<Cliente>> GetClienteAsync(int ID)
+        public async Task<dynamic> GetClienteAsync(int ID)
         {
             string parametros = ID > 0 ? $"Where idCliente = {ID}" : "";
             using(var connection = _conn.Opener())
@@ -28,21 +28,7 @@ namespace CadastroCliente.Infrastructure.Repositories
 
                 var res = await connection.QueryAsync(query);
 
-                // Formartar o resultado para Objeto e coloca-lo na Lista
-                var clientes = new List<Cliente>();
-
-                foreach (var cliente in res)
-                {
-                     clientes.Add(new Cliente(
-                        cliente.nomeCliente,
-                        DateTime.Parse(cliente.dataCliente),
-                        cliente.contatoCliente,
-                        cliente.enderecoCliente,
-                        cliente.documentoCliente,
-                        cliente.statusCliente == 1));
-                }
-
-                return clientes;
+                return res;
             }
         }
 

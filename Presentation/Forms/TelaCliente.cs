@@ -22,20 +22,14 @@ namespace CadastroCliente
 
             // Loop para adicionar as Linhas de Acordo com os Dados do Cliente
             if (clientes == null) return;
-            
-            foreach (var cliente in clientes)
-            {
-                dg_Clientes.Rows.Add(
-                    cliente.nomeCliente, cliente.dataCliente, cliente.contatoCliente, cliente.enderecoCliente,
-                    cliente.documentoCliente, cliente.statusCliente ? "Ativo" : "Cancelado");
-            }
+
+            dg_Clientes.DataSource = clientes;
         }
 
         private async void bt_adicionar_Click(object sender, EventArgs e)
         {
             try
             {
-
                 string nome = txb_Nome.Text;
                 string contato = txb_Contato.Text;
                 DateTime dataNasc = dtp_DataNasc.Value.ToLocalTime().Date;
@@ -43,6 +37,8 @@ namespace CadastroCliente
                 string documento = txb_documento.Text;
 
                 await _clienteFacade.AdicionarCliente(nome, dataNasc, contato, endereco, documento);
+
+                BuscarCliente() ;
             }
             catch (Exception ex)
             {
@@ -89,11 +85,16 @@ namespace CadastroCliente
         {
             if (dg_Clientes.Columns[e.ColumnIndex].Name == "col_StatusCliente" && e.Value != null)
             {
-                string cellValue = e.Value.ToString();
+                bool cellValue = (bool)e.Value;
 
-                if (cellValue == "Ativo") e.CellStyle.BackColor = Color.LightGreen;
-                else if (cellValue == "Cancelado") e.CellStyle.BackColor = Color.Red;
-
+                if (cellValue){ 
+                    e.CellStyle.BackColor = Color.LightGreen;
+                    e.Value = "Ativo";
+                    return;
+                }
+                 
+                e.CellStyle.BackColor = Color.Red;
+                e.Value = "Cancelado";
             }
         }
 
@@ -115,8 +116,6 @@ namespace CadastroCliente
 
 
             }
-
-
         }
     }
 }

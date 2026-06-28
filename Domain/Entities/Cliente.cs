@@ -32,5 +32,19 @@ namespace CadastroCliente.Domain.Entities
 
         }
 
+
+        public void AlterarDados(dynamic dados)
+        {
+            this.nomeCliente = dados.nome;
+            this.dataCliente = dados.data;
+            this.contatoCliente = dados.contato;
+            this.documentoCliente = dados.documento;
+        }
+
+
+        public void MudarStatus(bool status)
+        {
+            this.statusCliente = !status;
+        }
     }
 }

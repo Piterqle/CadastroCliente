@@ -13,9 +13,24 @@ namespace CadastroCliente.Aplication.UseCases
             _clienteRepository = clienteRepository;
         }
 
-        public Task<List<Cliente>>Execute(int ID)
+        public async Task<List<Cliente>>Execute(int ID)
         {
-            var clientes = _clienteRepository.GetClienteAsync(ID);
+            var res = await _clienteRepository.GetClienteAsync(ID);
+
+            // Formartar o resultado para Objeto e coloca-lo na Lista
+            var clientes = new List<Cliente>();
+
+            foreach (var cliente in res)
+            {
+                clientes.Add(new Cliente(
+                   cliente.nomeCliente,
+                   DateTime.Parse(cliente.dataCliente),
+                   cliente.contatoCliente,
+                   cliente.enderecoCliente,
+                   cliente.documentoCliente,
+                   cliente.statusCliente == 1));
+            }
+
             return clientes;
         }
             

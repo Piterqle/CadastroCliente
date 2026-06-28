@@ -42,15 +42,16 @@
             rb_Cnpj = new RadioButton();
             bt_adicionar = new Button();
             dg_Clientes = new DataGridView();
+            panel1 = new Panel();
+            bt_cancelar = new Button();
+            bt_editar = new Button();
+            col_IdCliente = new DataGridViewTextBoxColumn();
             col_NomeCliente = new DataGridViewTextBoxColumn();
             col_DataCliente = new DataGridViewTextBoxColumn();
             col_contatoCliente = new DataGridViewTextBoxColumn();
             col_EnderecoCliente = new DataGridViewTextBoxColumn();
             col_DocumentoClietne = new DataGridViewTextBoxColumn();
             col_StatusCliente = new DataGridViewTextBoxColumn();
-            panel1 = new Panel();
-            bt_cancelar = new Button();
-            bt_editar = new Button();
             ((System.ComponentModel.ISupportInitialize)dg_Clientes).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -197,7 +198,7 @@
             bt_adicionar.TabIndex = 17;
             bt_adicionar.Text = "Adicionar";
             bt_adicionar.UseVisualStyleBackColor = false;
-            bt_adicionar.Click += BuscarCliente;
+            bt_adicionar.Click += bt_adicionar_Click;
             // 
             // dg_Clientes
             // 
@@ -210,48 +211,12 @@
             dg_Clientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dg_Clientes.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
             dg_Clientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dg_Clientes.Columns.AddRange(new DataGridViewColumn[] { col_NomeCliente, col_DataCliente, col_contatoCliente, col_EnderecoCliente, col_DocumentoClietne, col_StatusCliente });
+            dg_Clientes.Columns.AddRange(new DataGridViewColumn[] { col_IdCliente, col_NomeCliente, col_DataCliente, col_contatoCliente, col_EnderecoCliente, col_DocumentoClietne, col_StatusCliente });
             dg_Clientes.Location = new Point(18, 47);
             dg_Clientes.Name = "dg_Clientes";
             dg_Clientes.Size = new Size(741, 194);
             dg_Clientes.TabIndex = 18;
             dg_Clientes.CellFormatting += dg_Clientes_CellFormatting;
-            // 
-            // col_NomeCliente
-            // 
-            col_NomeCliente.HeaderText = "Nome ";
-            col_NomeCliente.Name = "col_NomeCliente";
-            col_NomeCliente.ReadOnly = true;
-            // 
-            // col_DataCliente
-            // 
-            col_DataCliente.HeaderText = "Data de Nascimento";
-            col_DataCliente.Name = "col_DataCliente";
-            col_DataCliente.ReadOnly = true;
-            // 
-            // col_contatoCliente
-            // 
-            col_contatoCliente.HeaderText = "Contato";
-            col_contatoCliente.Name = "col_contatoCliente";
-            col_contatoCliente.ReadOnly = true;
-            // 
-            // col_EnderecoCliente
-            // 
-            col_EnderecoCliente.HeaderText = "Endereço";
-            col_EnderecoCliente.Name = "col_EnderecoCliente";
-            col_EnderecoCliente.ReadOnly = true;
-            // 
-            // col_DocumentoClietne
-            // 
-            col_DocumentoClietne.HeaderText = "Documento";
-            col_DocumentoClietne.Name = "col_DocumentoClietne";
-            col_DocumentoClietne.ReadOnly = true;
-            // 
-            // col_StatusCliente
-            // 
-            col_StatusCliente.HeaderText = "Status";
-            col_StatusCliente.Name = "col_StatusCliente";
-            col_StatusCliente.ReadOnly = true;
             // 
             // panel1
             // 
@@ -291,6 +256,55 @@
             bt_editar.TabIndex = 19;
             bt_editar.Text = "Editar";
             bt_editar.UseVisualStyleBackColor = false;
+            // 
+            // col_IdCliente
+            // 
+            col_IdCliente.DataPropertyName = "idCliente";
+            col_IdCliente.HeaderText = "ID";
+            col_IdCliente.Name = "col_IdCliente";
+            col_IdCliente.ReadOnly = true;
+            // 
+            // col_NomeCliente
+            // 
+            col_NomeCliente.DataPropertyName = "nomeCliente";
+            col_NomeCliente.HeaderText = "Nome ";
+            col_NomeCliente.Name = "col_NomeCliente";
+            col_NomeCliente.ReadOnly = true;
+            // 
+            // col_DataCliente
+            // 
+            col_DataCliente.DataPropertyName = "dataCliente";
+            col_DataCliente.HeaderText = "Data de Nascimento";
+            col_DataCliente.Name = "col_DataCliente";
+            col_DataCliente.ReadOnly = true;
+            // 
+            // col_contatoCliente
+            // 
+            col_contatoCliente.DataPropertyName = "contatoCliente";
+            col_contatoCliente.HeaderText = "Contato";
+            col_contatoCliente.Name = "col_contatoCliente";
+            col_contatoCliente.ReadOnly = true;
+            // 
+            // col_EnderecoCliente
+            // 
+            col_EnderecoCliente.DataPropertyName = "enderecoCliente";
+            col_EnderecoCliente.HeaderText = "Endereço";
+            col_EnderecoCliente.Name = "col_EnderecoCliente";
+            col_EnderecoCliente.ReadOnly = true;
+            // 
+            // col_DocumentoClietne
+            // 
+            col_DocumentoClietne.DataPropertyName = "documentoCliente";
+            col_DocumentoClietne.HeaderText = "Documento";
+            col_DocumentoClietne.Name = "col_DocumentoClietne";
+            col_DocumentoClietne.ReadOnly = true;
+            // 
+            // col_StatusCliente
+            // 
+            col_StatusCliente.DataPropertyName = "statusCliente";
+            col_StatusCliente.HeaderText = "Status";
+            col_StatusCliente.Name = "col_StatusCliente";
+            col_StatusCliente.ReadOnly = true;
             // 
             // TelaCliente
             // 
@@ -337,13 +351,14 @@
         private Button bt_adicionar;
         private DataGridView dg_Clientes;
         private Panel panel1;
+        private Button bt_editar;
+        private Button bt_cancelar;
+        private DataGridViewTextBoxColumn col_IdCliente;
         private DataGridViewTextBoxColumn col_NomeCliente;
         private DataGridViewTextBoxColumn col_DataCliente;
         private DataGridViewTextBoxColumn col_contatoCliente;
         private DataGridViewTextBoxColumn col_EnderecoCliente;
         private DataGridViewTextBoxColumn col_DocumentoClietne;
         private DataGridViewTextBoxColumn col_StatusCliente;
-        private Button bt_editar;
-        private Button bt_cancelar;
     }
 }

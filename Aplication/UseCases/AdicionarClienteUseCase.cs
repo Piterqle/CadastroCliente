@@ -27,7 +27,7 @@ namespace CadastroCliente.Aplication.UseCases
             if (contato.Length < 12) throw new Exception("Número de Telefone inválido");
 
 
-            Cliente cliente = new Cliente(name, dateTime, endereco, contato, documento, true);
+            Cliente cliente = new Cliente(name, dateTime, contato, endereco, documento, true);
             _clienteRepository.AddCliente(cliente);
         }
     }
