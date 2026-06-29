@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CadastroCliente.Domain.Entities
+namespace CadastroCliente.Aplication.Models
 {
-    public class Cliente
+    public class ClienteModelView
     {
-        public int idCliente { get; private set; }
+        internal int idCliente { get; private set; }
         public string nomeCliente { get; private set; }
         public DateTime dataCliente { get; private set; }
         public string contatoCliente { get; private set; }
         public string enderecoCliente { get; private set; }
         public string documentoCliente { get; private set; }
-        public bool  statusCliente { get; private set;  }
+        public bool statusCliente { get; private set; }
 
-        public Cliente(
-            string nomeCliente, 
-            DateTime dataCliente, 
-            string contatoCliente, 
-            string enderecoCliente, 
-            string documentoCliente, 
+        public ClienteModelView(
+            string nomeCliente,
+            DateTime dataCliente,
+            string contatoCliente,
+            string enderecoCliente,
+            string documentoCliente,
             bool statusCliente,
             int idCliente = 0
            )
@@ -32,21 +32,6 @@ namespace CadastroCliente.Domain.Entities
             this.documentoCliente = documentoCliente;
             this.statusCliente = statusCliente;
 
-        }
-
-
-        public void AlterarDados(dynamic dados)
-        {
-            this.nomeCliente = dados.nome;
-            this.dataCliente = dados.data;
-            this.contatoCliente = dados.contato;
-            this.documentoCliente = dados.documento;
-        }
-
-
-        public void AlterarStatus()
-        {
-            this.statusCliente = !(this.statusCliente);
         }
     }
 }

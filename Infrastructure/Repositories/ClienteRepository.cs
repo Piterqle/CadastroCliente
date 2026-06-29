@@ -20,11 +20,11 @@ namespace CadastroCliente.Infrastructure.Repositories
         public async Task<dynamic> GetClienteAsync(int ID)
         {
             string parametros = ID > 0 ? $"Where idCliente = {ID}" : "";
-            using(var connection = _conn.Opener())
+            using (var connection = _conn.Opener())
             {
 
                 // Query que busca uma pessoa em específico ou puxar todas. 
-                string query = "Select nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, Cast(statusCliente as Bit) statusCliente from Cliente " + parametros;
+                string query = "Select idCliente, nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, Cast(statusCliente as Bit) statusCliente from Cliente " + parametros;
 
                 var res = await connection.QueryAsync(query);
 
@@ -35,12 +35,12 @@ namespace CadastroCliente.Infrastructure.Repositories
         public Task<string> AddCliente(Cliente cliente)
         {
 
-            
-            using(var connection = _conn.Opener())
+
+            using (var connection = _conn.Opener())
             {
 
                 // Query para adicionar os Clientes
-                const string query = @" Insert Into Cliente
+                const string query = @"Insert Into Cliente
                     (nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, statusCliente)
                     Values
                     (@nomeCliente, @dataCliente, @contatoCliente, @enderecoCliente, @documentoCliente, @statusCliente)";
@@ -51,6 +51,26 @@ namespace CadastroCliente.Infrastructure.Repositories
 
             MessageBox.Show("Cliente Adicionado com Sucesso", "Seja Ben-vindo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             return Task.FromResult(cliente.nomeCliente);
-        }   
+        }
+
+
+        public async Task UpdateCliente(Cliente cliente)
+        {
+            using (var connection = _conn.Opener())
+            {
+                string query = $@"Update Cliente Set
+                    nomeCliente = @nomeCliente,
+                    dataCliente = @dataCliente,
+                    contatoCliente = @contatoCliente,
+                    enderecoCliente = @enderecoCliente,
+                    documentoCliente = @documentoCliente,
+                    statusCliente = @statusCliente WHERE idCliente = @idCliente ";
+
+                var rowsAffect = connection.Execute(query, cliente);
+            }
+            MessageBox.Show("Cliente Alterado com Sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            return;
+        }
     }
 }
