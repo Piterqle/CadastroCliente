@@ -8,34 +8,33 @@ namespace CadastroCliente.Aplication.Facade
 {
     internal class ClienteFacade //Facade para não expor os metodos da UseCase no Form
     {
-        private readonly AdicionarClienteUseCase _adicionarClienteUseCase;
-        private readonly GetClienteUseCase _getClienteUseCase;
-        private readonly UpdateClienteUseCase _updateClientesUseCase;
+        private readonly ClienteUseCase _ClienteUseCase;
+        private readonly ClienteReadUseCase _ClienteReadUseCase;
+        
 
         
         public ClienteFacade()
         {
-            _adicionarClienteUseCase = DependencyServices.Get<AdicionarClienteUseCase>();
-            _getClienteUseCase = DependencyServices.Get<GetClienteUseCase>();
-            _updateClientesUseCase = DependencyServices.Get<UpdateClienteUseCase>();
+            _ClienteUseCase = DependencyServices.Get<ClienteUseCase>();
+            _ClienteReadUseCase = DependencyServices.Get<ClienteReadUseCase>();
         }
 
 
         public async Task AdicionarCliente(string nome, DateTime dataNasc, string contato, string endereco, string documento) =>
-            _adicionarClienteUseCase.Execute(nome, dataNasc, contato, endereco, documento);
+            _ClienteUseCase.Insert(nome, dataNasc, contato, endereco, documento);
 
 
-        public async Task<List<ClienteModelView>> BuscarCliente(int ID)
+        public async Task<List<ClienteReadView>> BuscarCliente(int ID)
         {
-            List<ClienteModelView> clientes = await _getClienteUseCase.Execute(ID);
+            List<ClienteReadView> clientes = await _ClienteReadUseCase.Read(ID);
             return clientes;
         }
 
-        public async Task CancelarStatus(ClienteModelView cliente)
+        public async Task CancelarStatus(ClienteReadView cliente)
         {
             if (cliente == null) throw new Exception("É Necessário dados do Cliente");
 
-            _updateClientesUseCase.ExecuteStatus(cliente);
+            _ClienteUseCase.Update(cliente);
         }
     }
 }

@@ -7,23 +7,23 @@ using System.Text;
 
 namespace CadastroCliente.Aplication.UseCases
 {
-    public class GetClienteUseCase
+    public class ClienteReadUseCase
     {
         private readonly IClienteRepository _clienteRepository;
-        public GetClienteUseCase(IClienteRepository clienteRepository) {
+        public ClienteReadUseCase(IClienteRepository clienteRepository) {
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<List<ClienteModelView>>Execute(int ID)
+        public async Task<List<ClienteReadView>>Read(int ID)
         {
             var res = await _clienteRepository.GetClienteAsync(ID);
 
             // Formartar o resultado para Objeto e coloca-lo na Lista
-            var clientes = new List<ClienteModelView>();
+            var clientes = new List<ClienteReadView>();
 
             foreach (var cliente in res)
             {
-                clientes.Add(new ClienteModelView(
+                clientes.Add(new ClienteReadView(
                    cliente.nomeCliente,
                    DateTime.Parse(cliente.dataCliente),
                    cliente.contatoCliente,

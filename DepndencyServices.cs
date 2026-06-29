@@ -38,7 +38,7 @@ namespace CadastroCliente
 
             services.AddTransient<IClienteRepository, ClienteRepository>();
 
-            services.AddTransient<GetClienteUseCase>();
+            services.AddTransient<ClienteReadUseCase>();
             services.AddTransient<AdicionarClienteUseCase>();
             services.AddTransient<UpdateClienteUseCase>();
 
