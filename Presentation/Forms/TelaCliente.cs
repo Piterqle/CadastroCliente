@@ -38,7 +38,7 @@ namespace CadastroCliente
 
                 await _clienteFacade.AdicionarCliente(nome, dataNasc, contato, endereco, documento);
 
-                BuscarCliente() ;
+                BuscarCliente();
             }
             catch (Exception ex)
             {
@@ -114,7 +114,7 @@ namespace CadastroCliente
             {
                 var cliente = dg_Clientes.SelectedRows[0].Cells[0].Value.ToString();
 
-
+                return;
             }
         }
     }

@@ -6,7 +6,7 @@ namespace CadastroCliente.Domain.Entities
 {
     public class Cliente
     {
-        internal Guid idCliente { get; private set; }
+        internal int? idCliente { get; private set; }
 
         public string nomeCliente { get; private set; }
 
@@ -20,9 +20,15 @@ namespace CadastroCliente.Domain.Entities
         
         public bool  statusCliente { get; private set;  }
 
-        public Cliente(string nomeCliente, DateTime dataCliente, string contatoCliente, string enderecoCliente, string documentoCliente, bool statusCliente)
+        public Cliente(string nomeCliente, 
+            DateTime dataCliente, 
+            string contatoCliente, 
+            string enderecoCliente, 
+            string documentoCliente, 
+            bool statusCliente, 
+            int? idCliente = 0)
         {
-            
+            this.idCliente = idCliente.HasValue ? idCliente : throw new Exception("ID do Cliente inválido");
             this.nomeCliente = nomeCliente;
             this.dataCliente = dataCliente;
             this.contatoCliente = contatoCliente;
