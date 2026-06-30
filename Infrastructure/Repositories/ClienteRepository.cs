@@ -1,4 +1,5 @@
-﻿using CadastroCliente.Domain.Entities;
+﻿using CadastroCliente.Aplication.Models;
+using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
 using Dapper;
 using System;
@@ -17,16 +18,16 @@ namespace CadastroCliente.Infrastructure.Repositories
             _conn = conn;
         }
 
-        public async Task<dynamic> GetClienteAsync(int ID)
+        public async Task<List<ClienteReadModel>> GetClienteAsync(int ID)
         {
             string parametros = ID > 0 ? $"Where idCliente = {ID}" : "";
             using (var connection = _conn.Opener())
             {
 
                 // Query que busca uma pessoa em específico ou puxar todas. 
-                string query = "Select idCliente, nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, Cast(statusCliente as Bit) statusCliente from Cliente " + parametros;
+                string query = "Select IdCliente, NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, Cast(statusCliente as Bit) tatusCliente from Cliente " + parametros;
 
-                var res = await connection.QueryAsync(query);
+                var res = await connection.QueryAsync<ClienteReadModel>(query);
 
                 return res;
             }
@@ -41,9 +42,9 @@ namespace CadastroCliente.Infrastructure.Repositories
 
                 // Query para adicionar os Clientes
                 const string query = @"Insert Into Cliente
-                    (nomeCliente, dataCliente, contatoCliente, enderecoCliente, documentoCliente, statusCliente)
+                    (NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, StatusCliente)
                     Values
-                    (@nomeCliente, @dataCliente, @contatoCliente, @enderecoCliente, @documentoCliente, @statusCliente)";
+                    (@NomeCliente, @DataCliente, @ContatoCliente, @EnderecoCliente, @DocumentoCliente, @StatusCliente)";
 
                 connection.Execute(query, cliente);
 

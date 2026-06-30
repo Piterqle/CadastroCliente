@@ -1,6 +1,3 @@
-
-using Newtonsoft.Json;
-
 namespace CadastroCliente
 {
     internal static class Program

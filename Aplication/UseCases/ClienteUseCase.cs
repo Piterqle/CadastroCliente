@@ -19,7 +19,7 @@ namespace CadastroCliente.Aplication.UseCases
         }
 
         //Método de Inserir no Banco de Dados
-        public void Insert(ClienteCreateDTO clienteDTO)
+        public async Task Insert(ClienteCreateDTO clienteDTO)
         {
             if (clienteDTO == null) { throw new ArgumentNullException(nameof(clienteDTO)); }
 
@@ -36,13 +36,25 @@ namespace CadastroCliente.Aplication.UseCases
 
                 );
 
-            _clienteRepository.AddCliente(cliente);
+            await _clienteRepository.AddCliente(cliente);
         }
 
 
-        public void Update()
+        public async Task Update(int clienteId, ClienteUpdateDTO clienteDTO)
         {
+            if (clienteDTO == null) throw new Exception("É Necessário dados do Cliente");
 
+            var erros = clienteDTO.Validate();
+
+            if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros)); }
+
+
+            Cliente cliente = await _clienteRepository.GetClienteAsync(clienteId);
+
+            if (clienteDTO.StatusCliente.HasChange) cliente.AlterarStatus();
+
+            
+            await _clienteRepository.UpdateCliente(cliente);
         }
     }
 }

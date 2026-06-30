@@ -24,6 +24,7 @@ namespace CadastroCliente
                     _connection = new SqliteConnection(connString);
                     _connection.Open();
                 }
+                ExecuteQuery();
                 return _connection;
 
             }
@@ -38,13 +39,13 @@ namespace CadastroCliente
             var command = _connection.CreateCommand();
             command.CommandText = """"
                         Create Table If Not Exists Cliente(
-                            idCliente INTEGER Primary Key ,
-                            nomeCliente varchar(250) Not Null,
-                            dataCliente date Not Null,
-                            contatoCliente varchar(13) Not Null,
-                            enderecoCliente varchar(250) Not Null,
-                            documentoCliente varchar(18) Not Null,
-                            statusCliente boolean Not Null
+                            IdCliente INTEGER Primary Key ,
+                            NomeCliente varchar(250) Not Null,
+                            DataCliente date Not Null,
+                            ContatoCliente varchar(13) Not Null,
+                            EnderecoCliente varchar(250) Not Null,
+                            DocumentoCliente varchar(18) Not Null,
+                            StatusCliente boolean Not Null
                         )
                         """";
             command.ExecuteNonQuery();

@@ -45,7 +45,6 @@
             panel1 = new Panel();
             bt_cancelar = new Button();
             bt_editar = new Button();
-            col_IdCliente = new DataGridViewTextBoxColumn();
             col_NomeCliente = new DataGridViewTextBoxColumn();
             col_DataCliente = new DataGridViewTextBoxColumn();
             col_contatoCliente = new DataGridViewTextBoxColumn();
@@ -211,7 +210,7 @@
             dg_Clientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dg_Clientes.CellBorderStyle = DataGridViewCellBorderStyle.Sunken;
             dg_Clientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dg_Clientes.Columns.AddRange(new DataGridViewColumn[] { col_IdCliente, col_NomeCliente, col_DataCliente, col_contatoCliente, col_EnderecoCliente, col_DocumentoClietne, col_StatusCliente });
+            dg_Clientes.Columns.AddRange(new DataGridViewColumn[] { col_NomeCliente, col_DataCliente, col_contatoCliente, col_EnderecoCliente, col_DocumentoClietne, col_StatusCliente });
             dg_Clientes.Location = new Point(18, 47);
             dg_Clientes.Name = "dg_Clientes";
             dg_Clientes.Size = new Size(741, 194);
@@ -257,51 +256,44 @@
             bt_editar.Text = "Editar";
             bt_editar.UseVisualStyleBackColor = false;
             // 
-            // col_IdCliente
-            // 
-            col_IdCliente.DataPropertyName = "idCliente";
-            col_IdCliente.HeaderText = "ID";
-            col_IdCliente.Name = "col_IdCliente";
-            col_IdCliente.ReadOnly = true;
-            // 
             // col_NomeCliente
             // 
-            col_NomeCliente.DataPropertyName = "nomeCliente";
+            col_NomeCliente.DataPropertyName = "NomeCliente";
             col_NomeCliente.HeaderText = "Nome ";
             col_NomeCliente.Name = "col_NomeCliente";
             col_NomeCliente.ReadOnly = true;
             // 
             // col_DataCliente
             // 
-            col_DataCliente.DataPropertyName = "dataCliente";
+            col_DataCliente.DataPropertyName = "DataCliente";
             col_DataCliente.HeaderText = "Data de Nascimento";
             col_DataCliente.Name = "col_DataCliente";
             col_DataCliente.ReadOnly = true;
             // 
             // col_contatoCliente
             // 
-            col_contatoCliente.DataPropertyName = "contatoCliente";
+            col_contatoCliente.DataPropertyName = "ContatoCliente";
             col_contatoCliente.HeaderText = "Contato";
             col_contatoCliente.Name = "col_contatoCliente";
             col_contatoCliente.ReadOnly = true;
             // 
             // col_EnderecoCliente
             // 
-            col_EnderecoCliente.DataPropertyName = "enderecoCliente";
+            col_EnderecoCliente.DataPropertyName = "EnderecoCliente";
             col_EnderecoCliente.HeaderText = "Endereço";
             col_EnderecoCliente.Name = "col_EnderecoCliente";
             col_EnderecoCliente.ReadOnly = true;
             // 
             // col_DocumentoClietne
             // 
-            col_DocumentoClietne.DataPropertyName = "documentoCliente";
+            col_DocumentoClietne.DataPropertyName = "DocumentoCliente";
             col_DocumentoClietne.HeaderText = "Documento";
             col_DocumentoClietne.Name = "col_DocumentoClietne";
             col_DocumentoClietne.ReadOnly = true;
             // 
             // col_StatusCliente
             // 
-            col_StatusCliente.DataPropertyName = "statusCliente";
+            col_StatusCliente.DataPropertyName = "StatusCliente";
             col_StatusCliente.HeaderText = "Status";
             col_StatusCliente.Name = "col_StatusCliente";
             col_StatusCliente.ReadOnly = true;
@@ -353,7 +345,6 @@
         private Panel panel1;
         private Button bt_editar;
         private Button bt_cancelar;
-        private DataGridViewTextBoxColumn col_IdCliente;
         private DataGridViewTextBoxColumn col_NomeCliente;
         private DataGridViewTextBoxColumn col_DataCliente;
         private DataGridViewTextBoxColumn col_contatoCliente;

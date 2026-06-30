@@ -22,7 +22,7 @@ namespace CadastroCliente.Aplication.Facade
 
 
         public async Task AdicionarCliente(ClienteCreateDTO cliente) =>
-            _ClienteUseCase.Insert(cliente);
+            await _ClienteUseCase.Insert(cliente);
 
 
         public async Task<List<ClienteReadModel>> BuscarCliente(int ID)
@@ -31,11 +31,7 @@ namespace CadastroCliente.Aplication.Facade
             return clientes;
         }
 
-        public async Task CancelarStatus(ClienteReadModel cliente)
-        {
-            if (cliente == null) throw new Exception("É Necessário dados do Cliente");
-
-            _ClienteUseCase.Update(cliente);
-        }
+        public async Task CancelarStatus(int idCliente, ClienteUpdateDTO cliente) =>
+            await _ClienteUseCase.Update(idCliente, cliente);
     }
 }

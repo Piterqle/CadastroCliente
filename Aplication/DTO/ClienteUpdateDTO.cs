@@ -53,8 +53,6 @@ namespace CadastroCliente.Aplication.DTO
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            throw new NotImplementedException();
-        }
+        {   yield break; }
     }
 }

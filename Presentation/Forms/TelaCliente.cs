@@ -120,16 +120,18 @@ namespace CadastroCliente
             };
 
             Button button = (Button)sender;
-            var cliente = dg_Clientes.CurrentRow != null ? dg_Clientes.CurrentRow.DataBoundItem : throw new Exception("Clique em Uma linha");
+            var selected = dg_Clientes.CurrentRow != null ? dg_Clientes.CurrentRow.DataBoundItem : throw new Exception("Clique em Uma linha");
             
+            ClienteReadModel clienteSelect = (ClienteReadModel)selected;
             if(button.Name == "bt_cancelar")
             {
-                _clienteFacade.CancelarStatus((ClienteReadModel) cliente);
+                ClienteUpdateDTO clienteUpdate = new ClienteUpdateDTO() { StatusCliente = !clienteSelect.StatusCliente };
+                _clienteFacade.CancelarStatus(clienteSelect.IdCliente, clienteUpdate);
                 BuscarCliente();
                 return;
             }
 
-
+            return;
 
         }
     }
