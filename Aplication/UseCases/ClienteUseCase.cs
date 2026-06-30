@@ -1,4 +1,5 @@
-﻿using CadastroCliente.Domain.Entities;
+﻿using CadastroCliente.Aplication.DTO;
+using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,16 +19,23 @@ namespace CadastroCliente.Aplication.UseCases
         }
 
         //Método de Inserir no Banco de Dados
-        public void Insert(string name, DateTime dateTime, string contato, string endereco, string documento)
+        public void Insert(ClienteCreateDTO clienteDTO)
         {
-            List<string> dados = [name, dateTime.ToString(), contato, endereco, documento];
+            if (clienteDTO == null) { throw new ArgumentNullException(nameof(clienteDTO)); }
 
-            if (dados.Any(items => items == "")) throw new Exception("Preencha os Campos");
+            var erros = clienteDTO.Validate();
+            if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros));  }
 
-            if (contato.Length < 12) throw new Exception("Número de Telefone inválido");
+            Cliente cliente = new Cliente(
+                clienteDTO.NomeCliente,
+                clienteDTO.DataCliente,
+                clienteDTO.ClienteContato,
+                clienteDTO.EnderecoCliente,
+                clienteDTO.DocumentoCliente,
+                clienteDTO.StatusCliente
 
+                );
 
-            Cliente cliente = new Cliente(name, dateTime, contato, endereco, documento, true);
             _clienteRepository.AddCliente(cliente);
         }
 

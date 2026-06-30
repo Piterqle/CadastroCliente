@@ -14,23 +14,23 @@ namespace CadastroCliente.Aplication.UseCases
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<List<ClienteReadView>>Read(int ID)
+        public async Task<List<ClienteReadModel>>Read(int ID)
         {
             var res = await _clienteRepository.GetClienteAsync(ID);
 
             // Formartar o resultado para Objeto e coloca-lo na Lista
-            var clientes = new List<ClienteReadView>();
+            var clientes = new List<ClienteReadModel>();
 
             foreach (var cliente in res)
             {
-                clientes.Add(new ClienteReadView(
-                   cliente.nomeCliente,
-                   DateTime.Parse(cliente.dataCliente),
-                   cliente.contatoCliente,
-                   cliente.enderecoCliente,
-                   cliente.documentoCliente,
-                   cliente.statusCliente == 1,
-                   (int)cliente.idCliente));
+                clientes.Add(new ClienteReadModel() {
+                   NomeCliente = cliente.nomeCliente,
+                   DataCliente = DateTime.Parse(cliente.dataCliente),
+                   ContatoCliente = cliente.contatoCliente,
+                   EnderecoCliente = cliente.enderecoCliente,
+                   DocumentoCliente = cliente.documentoCliente,
+                   StatusCliente = cliente.statusCliente == 1,
+                   IdCliente = (int)cliente.idCliente }); 
             }
 
             return clientes;

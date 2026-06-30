@@ -50,7 +50,7 @@ namespace CadastroCliente.Infrastructure.Repositories
             }
 
             MessageBox.Show("Cliente Adicionado com Sucesso", "Seja Ben-vindo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            return Task.FromResult(cliente.nomeCliente);
+            return Task.FromResult(cliente.NomeCliente);
         }
 
 

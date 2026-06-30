@@ -1,4 +1,5 @@
-﻿using CadastroCliente.Aplication.Models;
+﻿using CadastroCliente.Aplication.DTO;
+using CadastroCliente.Aplication.Models;
 using CadastroCliente.Aplication.UseCases;
 using System;
 using System.Collections.Generic;
@@ -20,17 +21,17 @@ namespace CadastroCliente.Aplication.Facade
         }
 
 
-        public async Task AdicionarCliente(string nome, DateTime dataNasc, string contato, string endereco, string documento) =>
-            _ClienteUseCase.Insert(nome, dataNasc, contato, endereco, documento);
+        public async Task AdicionarCliente(ClienteCreateDTO cliente) =>
+            _ClienteUseCase.Insert(cliente);
 
 
-        public async Task<List<ClienteReadView>> BuscarCliente(int ID)
+        public async Task<List<ClienteReadModel>> BuscarCliente(int ID)
         {
-            List<ClienteReadView> clientes = await _ClienteReadUseCase.Read(ID);
+            List<ClienteReadModel> clientes = await _ClienteReadUseCase.Read(ID);
             return clientes;
         }
 
-        public async Task CancelarStatus(ClienteReadView cliente)
+        public async Task CancelarStatus(ClienteReadModel cliente)
         {
             if (cliente == null) throw new Exception("É Necessário dados do Cliente");
 

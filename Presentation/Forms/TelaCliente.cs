@@ -1,3 +1,4 @@
+using CadastroCliente.Aplication.DTO;
 using CadastroCliente.Aplication.Facade;
 using CadastroCliente.Aplication.Models;
 using CadastroCliente.Infrastructure.Repositories;
@@ -37,7 +38,16 @@ namespace CadastroCliente
                 string endereco = txb_endereco.Text;
                 string documento = txb_documento.Text;
 
-                await _clienteFacade.AdicionarCliente(nome, dataNasc, contato, endereco, documento);
+                var cliente = new ClienteCreateDTO() { 
+                    NomeCliente = nome,
+                    ClienteContato = contato,
+                    DataCliente = dataNasc,
+                    EnderecoCliente = endereco,
+                    DocumentoCliente = documento,
+                    StatusCliente = true
+                };
+
+                await _clienteFacade.AdicionarCliente(cliente);
 
                 BuscarCliente();
             }
@@ -114,7 +124,7 @@ namespace CadastroCliente
             
             if(button.Name == "bt_cancelar")
             {
-                _clienteFacade.CancelarStatus((ClienteReadView) cliente);
+                _clienteFacade.CancelarStatus((ClienteReadModel) cliente);
                 BuscarCliente();
                 return;
             }
