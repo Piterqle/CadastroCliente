@@ -53,6 +53,19 @@ namespace CadastroCliente.Aplication.DTO
         }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {   yield break; }
+        {
+            if(ContatoCliente.HasChange){
+                if (ContatoCliente.Value.Any(char.IsLetter))
+                    yield return
+                    new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ContatoCliente) });
+            }
+            if (DocumentoCliente.HasChange)
+            {
+                if (DocumentoCliente.Value.Any(char.IsLetter))
+                    yield return
+                    new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ContatoCliente) });
+            }
+            yield break; 
+        }
     }
 }
