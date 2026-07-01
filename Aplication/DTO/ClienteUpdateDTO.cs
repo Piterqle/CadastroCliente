@@ -58,13 +58,33 @@ namespace CadastroCliente.Aplication.DTO
                 if (ContatoCliente.Value.Any(char.IsLetter))
                     yield return
                     new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ContatoCliente) });
+                else if (DocumentoCliente.Value.Length > 17 || DocumentoCliente.Value.Length < 13)
+                    yield return
+                    new ValidationResult("Tamanho do Telefone deverá ser entre 13 e 17 caracteres", new[] { nameof(ContatoCliente) });
             }
             if (DocumentoCliente.HasChange)
             {
                 if (DocumentoCliente.Value.Any(char.IsLetter))
                     yield return
-                    new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ContatoCliente) });
+                    new ValidationResult("O Documento CPF/CNPJ não pode possuir Letras", new[] { nameof(DocumentoCliente) });
+
+                else if (DocumentoCliente.Value.Length > 20 || DocumentoCliente.Value.Length < 13)
+                    yield return
+                    new ValidationResult("Tamanho do Documento CPF/CNPJ deverá ser entre 13 e 20 caracteres", new[] { nameof(DocumentoCliente) });
             }
+            if (NomeCliente.HasChange)
+            {
+                if (NomeCliente.Value.Length > 3 || DocumentoCliente.Value.Length < 100)
+                    yield return
+                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 100 caracteres", new[] { nameof(NomeCliente) });
+            }
+            if (EnderecoCliente.HasChange)
+            {
+                if (NomeCliente.Value.Length > 3 || DocumentoCliente.Value.Length < 120)
+                    yield return
+                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 120 caracteres", new[] { nameof(EnderecoCliente) });
+            }
+
             yield break; 
         }
     }

@@ -51,7 +51,7 @@ namespace CadastroCliente.Aplication.DTO
                 new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ClienteContato) });
             if (DocumentoCliente.Any(char.IsLetter))
                 yield return
-                new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(DocumentoCliente) });
+                new ValidationResult("O Documento CPF/CNPJ não pode possuir Letras", new[] { nameof(DocumentoCliente) });
 
             yield break; 
         }
