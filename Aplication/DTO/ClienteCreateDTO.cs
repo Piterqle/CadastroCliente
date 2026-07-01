@@ -10,7 +10,6 @@ namespace CadastroCliente.Aplication.DTO
     public class ClienteCreateDTO : CustomValidatableObjectCheck, IValidatableObject
     {
         // Identificador do CLiente pode ser opicional, mas não negativo
-        [Range(1, int.MaxValue, ErrorMessage = "ID não poder ser neutro ou negativo")]
         public int Id { get; set; }
 
 
@@ -38,7 +37,7 @@ namespace CadastroCliente.Aplication.DTO
 
         // Documento é obrigatório e com caracteres limitado
         [Required(AllowEmptyStrings = false, ErrorMessage = "Documento do Cliente é obrigatório")]
-        [StringLength(20, MinimumLength = 16, ErrorMessage = "Tamanho do Documento deverá ser entre 16 a 20 caracteres")]
+        [StringLength(20, MinimumLength = 13, ErrorMessage = "Tamanho do Documento deverá ser entre 16 a 20 caracteres")]
         public string DocumentoCliente { get; set;} = string.Empty;
 
         // Status do Cliente é apenas obrigatório

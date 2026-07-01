@@ -9,7 +9,7 @@ namespace CadastroCliente.Domain.Repositories
     public interface IClienteRepository
     {
         Task<string>AddCliente(Cliente cliente);
-        Task<List<ClienteReadModel>> GetClienteAsync(int ID);
+        Task<dynamic> GetClienteAsync(int ID);
         Task UpdateCliente(Cliente cliente);
     }
 }

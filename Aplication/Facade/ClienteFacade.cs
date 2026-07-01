@@ -25,13 +25,13 @@ namespace CadastroCliente.Aplication.Facade
             await _ClienteUseCase.Insert(cliente);
 
 
-        public async Task<List<ClienteReadModel>> BuscarCliente(int ID)
+        public async Task<List<ClienteReadModel>> BuscarCliente(int ID = 0)
         {
             List<ClienteReadModel> clientes = await _ClienteReadUseCase.Read(ID);
             return clientes;
         }
 
-        public async Task CancelarStatus(int idCliente, ClienteUpdateDTO cliente) =>
+        public async Task AlterarDadosCliente(int idCliente, ClienteUpdateDTO cliente) =>
             await _ClienteUseCase.Update(idCliente, cliente);
     }
 }

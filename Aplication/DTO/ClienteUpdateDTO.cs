@@ -38,7 +38,7 @@ namespace CadastroCliente.Aplication.DTO
             get => _contatoCliente; set => _contatoCliente = value ?? OptionalRef<string>.FromNullValue();
         }
 
-        public OptionalRef<string> EderecoCliente
+        public OptionalRef<string> EnderecoCliente
         {
             get => _enderecoCliente; set => _enderecoCliente = value ?? OptionalRef<string>.FromNullValue();
         }

@@ -35,15 +35,15 @@ namespace CadastroCliente.Domain.Entities
         }
 
 
-        public void AlterarDados(dynamic dados)
-        {
-            NomeCliente = dados.nome;
-            DataCliente = dados.data;
-            ContatoCliente = dados.contato;
-            EnderecoCliente = dados.endereco;
-            DocumentoCliente = dados.documento;
-        }
+        public void AlterarNome(string novoNome) => NomeCliente = novoNome;
 
+        public void AlterarContato(string novoContato) => ContatoCliente = novoContato;
+
+        public void AlterarData(DateTime novaData) => DataCliente = novaData;
+        
+        public void AlterarEndereco(string novoEndereco) => EnderecoCliente = novoEndereco;
+        
+        public void AlterarDocumento(string novoDocumento) => DocumentoCliente = novoDocumento;
 
         public void AlterarStatus()
         {

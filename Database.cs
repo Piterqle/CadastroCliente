@@ -24,7 +24,6 @@ namespace CadastroCliente
                     _connection = new SqliteConnection(connString);
                     _connection.Open();
                 }
-                ExecuteQuery();
                 return _connection;
 
             }

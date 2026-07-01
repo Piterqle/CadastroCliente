@@ -11,9 +11,9 @@ namespace CadastroCliente
 {
     public class DependencyServices //Injeção de Dependências paras os outros Arquivos
     {
-        private static ServiceProvider _provider;
+        private static ServiceProvider? _provider;
 
-        private static string _connectionString;
+        private static string? _connectionString;
         private static readonly object _lock = new object();
 
         public static void Configure(string connectionString)
@@ -29,6 +29,7 @@ namespace CadastroCliente
         }
         public static ServiceProvider BuidServiceProvider()
         {
+            if (_connectionString == null) throw new InvalidOperationException("Connection string is not configured.");
             var services = new ServiceCollection();
 
             services.AddScoped<Database>(provider =>

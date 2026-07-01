@@ -18,16 +18,16 @@ namespace CadastroCliente.Infrastructure.Repositories
             _conn = conn;
         }
 
-        public async Task<List<ClienteReadModel>> GetClienteAsync(int ID)
+        public async Task<dynamic> GetClienteAsync(int ID)
         {
-            string parametros = ID > 0 ? $"Where idCliente = {ID}" : "";
+            string parametros = ID > 0 ? $"Where IdCliente = {ID}" : "";
             using (var connection = _conn.Opener())
             {
 
                 // Query que busca uma pessoa em específico ou puxar todas. 
-                string query = "Select IdCliente, NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, Cast(statusCliente as Bit) tatusCliente from Cliente " + parametros;
+                string query = "Select NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, Cast(statusCliente as Bit) statusCliente, IdCliente from Cliente " + parametros;
 
-                var res = await connection.QueryAsync<ClienteReadModel>(query);
+                var res = await connection.QueryAsync(query);
 
                 return res;
             }
@@ -60,14 +60,14 @@ namespace CadastroCliente.Infrastructure.Repositories
             using (var connection = _conn.Opener())
             {
                 string query = $@"Update Cliente Set
-                    nomeCliente = @nomeCliente,
-                    dataCliente = @dataCliente,
-                    contatoCliente = @contatoCliente,
-                    enderecoCliente = @enderecoCliente,
-                    documentoCliente = @documentoCliente,
-                    statusCliente = @statusCliente WHERE idCliente = @idCliente ";
+                    NomeCliente = @NomeCliente,
+                    DataCliente = @DataCliente,
+                    ContatoCliente = @ContatoCliente,
+                    EnderecoCliente = @EnderecoCliente,
+                    DocumentoCliente = @DocumentoCliente,
+                    StatusCliente = @StatusCliente WHERE idCliente = @IdCliente ";
 
-                var rowsAffect = connection.Execute(query, cliente);
+                await connection.ExecuteAsync(query, cliente);
             }
             MessageBox.Show("Cliente Alterado com Sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
