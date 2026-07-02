@@ -18,9 +18,11 @@ namespace CadastroCliente.Infrastructure.Repositories
             _conn = conn;
         }
 
-        public async Task<dynamic> GetClienteAsync(int ID)
+        public async Task<dynamic> GetClienteAsync(int ID, string documeto = "")
         {
             string parametros = ID > 0 ? $"Where IdCliente = {ID}" : "";
+            parametros = documeto != "" && parametros == "" ? $"Where DocumentoCliente = '{documeto}'" : "";
+
             using (var connection = _conn.Opener())
             {
 
@@ -39,7 +41,7 @@ namespace CadastroCliente.Infrastructure.Repositories
 
             using (var connection = _conn.Opener())
             {
-
+                
                 // Query para adicionar os Clientes
                 const string query = @"Insert Into Cliente
                     (NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, StatusCliente)

@@ -97,6 +97,7 @@
             txb_Contato.Size = new Size(196, 27);
             txb_Contato.TabIndex = 4;
             txb_Contato.TextChanged += txb_contato_textChanged;
+            txb_Contato.KeyPress += Number_KeyPress;
             // 
             // lb_DataNasc
             // 
@@ -160,6 +161,7 @@
             txb_documento.Size = new Size(196, 27);
             txb_documento.TabIndex = 11;
             txb_documento.TextChanged += txb_documento_TextChanged;
+            txb_documento.KeyPress += Number_KeyPress;
             // 
             // rb_Cpf
             // 

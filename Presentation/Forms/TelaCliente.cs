@@ -64,7 +64,7 @@ namespace CadastroCliente
             txb.MaxLength = 15;
             string documento = (string)txb.Text;
             txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{5})(\d{4})$", "($1) $2-$3");
-           
+
         }
 
         private void txb_documento_TextChanged(object sender, EventArgs e)
@@ -146,7 +146,7 @@ namespace CadastroCliente
                 bt_alterarStatus.Text = "Cancelar";
                 bt_alterarStatus.BackColor = Color.Red;
 
-                
+
                 txb_Nome.DataBindings.Add("Text", clienteSelect, "NomeCliente");
                 txb_Contato.DataBindings.Add("Text", clienteSelect, "ContatoCliente");
                 dtp_DataNasc.DataBindings.Add("Value", clienteSelect, "DataCliente");
@@ -154,7 +154,7 @@ namespace CadastroCliente
 
                 if (clienteSelect.DocumentoCliente.Length == 18)
                     rb_Cnpj.Checked = true;
-    
+
                 txb_documento.DataBindings.Add("Text", clienteSelect, "DocumentoCliente");
 
                 return;
@@ -175,16 +175,16 @@ namespace CadastroCliente
 
             txb_Nome.DataBindings.Clear();
             txb_Nome.Clear();
-            
+
             txb_Contato.DataBindings.Clear();
             txb_Contato.Clear();
-            
+
             dtp_DataNasc.DataBindings.Clear();
             dtp_DataNasc.Value = DateTime.Today;
-            
+
             txb_endereco.DataBindings.Clear();
             txb_endereco.Clear();
-            
+
             txb_documento.DataBindings.Clear();
             txb_documento.Clear();
 
@@ -201,6 +201,13 @@ namespace CadastroCliente
             BuscarCliente();
             return;
 
+        }
+
+        private void Number_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(!char.IsDigit(e.KeyChar) 
+                && !char.IsControl(e.KeyChar)) 
+                    e.Handled = true; 
         }
     }
 }

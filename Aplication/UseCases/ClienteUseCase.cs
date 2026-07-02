@@ -26,6 +26,9 @@ namespace CadastroCliente.Aplication.UseCases
             var erros = clienteDTO.Validate();
             if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros));  }
 
+            var res = await _clienteRepository.GetClienteAsync(0, clienteDTO.DocumentoCliente);
+            if (res.Count > 0) throw new DuplicateWaitObjectException("Documento Já Existe");
+
             Cliente cliente = new Cliente(
                 clienteDTO.NomeCliente,
                 clienteDTO.DataCliente,
@@ -35,13 +38,13 @@ namespace CadastroCliente.Aplication.UseCases
                 clienteDTO.StatusCliente
 
                 );
-
+            
             await _clienteRepository.AddCliente(cliente);
         }
 
 
         public async Task Update(int clienteId, ClienteUpdateDTO clienteDTO)
-        {
+            {
             if (clienteDTO == null) throw new Exception("É Necessário dados do Cliente");
 
             var erros = clienteDTO.Validate();
@@ -51,7 +54,6 @@ namespace CadastroCliente.Aplication.UseCases
 
             var res = await _clienteRepository.GetClienteAsync(clienteId);
 
-            var nomeCliente = res[0].nomeCliente;
             Cliente cliente = new Cliente(
                 res[0].nomeCliente,
                 DateTime.Parse(res[0].dataCliente),
@@ -73,12 +75,12 @@ namespace CadastroCliente.Aplication.UseCases
 
             if (clienteDTO.DataCliente.HasChange) cliente.AlterarData(clienteDTO.DataCliente.Value ?? throw new Exception("Erro na Alteração da Data do Cliente"));
 
-            if (clienteDTO.EnderecoCliente.HasChange) cliente.AlterarContato(clienteDTO.EnderecoCliente.Value);
+            if (clienteDTO.EnderecoCliente.HasChange) cliente.AlterarEndereco(clienteDTO.EnderecoCliente.Value);
             
-            if (clienteDTO.ContatoCliente.HasChange) cliente.AlterarContato(clienteDTO.ContatoCliente.Value);
+            if (clienteDTO.DocumentoCliente.HasChange) cliente.AlterarDocumento(clienteDTO.DocumentoCliente.Value);
             
             
             await _clienteRepository.UpdateCliente(cliente);
-        }
+            }
     }
 }
