@@ -15,7 +15,7 @@ namespace CadastroCliente.Aplication.DTO
 
         // Nome é obrigatório com caracteres limitada
         [Required(AllowEmptyStrings = false, ErrorMessage = "O Nome do Cliente é obrigatório")]
-        [StringLength(100, MinimumLength = 3, ErrorMessage = "Tamanho do nome deverá ser entre 2 a 100 caracteres")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "Tamanho do nome deverá ser entre 2 a 60 caracteres")]
         public string NomeCliente {  get; set; }  = string.Empty;
 
 
@@ -32,7 +32,7 @@ namespace CadastroCliente.Aplication.DTO
 
         // Endereço é obrigatório e com caracteres limitado
         [Required(AllowEmptyStrings = false, ErrorMessage = "Endereço do Cliente é obrigatório")]
-        [StringLength(120, MinimumLength = 3, ErrorMessage = "Tamanho do endereço deverá ser entre 2 a 120 caracteres")]
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "Tamanho do endereço deverá ser entre 2 a 60 caracteres")]
         public string EnderecoCliente { get; set;} = string.Empty;
 
         // Documento é obrigatório e com caracteres limitado

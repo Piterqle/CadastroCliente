@@ -71,6 +71,7 @@
             txb_Nome.Anchor = AnchorStyles.Top;
             txb_Nome.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txb_Nome.Location = new Point(30, 56);
+            txb_Nome.MaxLength = 60;
             txb_Nome.Name = "txb_Nome";
             txb_Nome.PlaceholderText = "xxxxxx";
             txb_Nome.Size = new Size(196, 27);
@@ -136,6 +137,7 @@
             txb_endereco.Anchor = AnchorStyles.Top;
             txb_endereco.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txb_endereco.Location = new Point(30, 134);
+            txb_endereco.MaxLength = 60;
             txb_endereco.Name = "txb_endereco";
             txb_endereco.Size = new Size(196, 27);
             txb_endereco.TabIndex = 9;

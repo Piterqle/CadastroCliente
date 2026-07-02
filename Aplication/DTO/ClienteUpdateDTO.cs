@@ -74,15 +74,15 @@ namespace CadastroCliente.Aplication.DTO
             }
             if (NomeCliente.HasChange)
             {
-                if (NomeCliente.Value.Length < 3 || DocumentoCliente.Value.Length > 100)
+                if (NomeCliente.Value.Length < 3 || DocumentoCliente.Value.Length > 60)
                     yield return
-                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 100 caracteres", new[] { nameof(NomeCliente) });
+                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 60 caracteres", new[] { nameof(NomeCliente) });
             }
             if (EnderecoCliente.HasChange)
             {
-                if (NomeCliente.Value.Length < 3 || DocumentoCliente.Value.Length > 120)
+                if (EnderecoCliente.Value.Length < 3 || EnderecoCliente.Value.Length > 60)
                     yield return
-                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 120 caracteres", new[] { nameof(EnderecoCliente) });
+                        new ValidationResult("Tamanho do Endereço deverá ser entre 3 a 60 caracteres", new[] { nameof(EnderecoCliente) });
             }
 
             yield break; 

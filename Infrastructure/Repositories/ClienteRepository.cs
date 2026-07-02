@@ -21,7 +21,7 @@ namespace CadastroCliente.Infrastructure.Repositories
         public async Task<dynamic> GetClienteAsync(int ID, string documeto = "")
         {
             string parametros = ID > 0 ? $"Where IdCliente = {ID}" : "";
-            parametros = documeto != "" && parametros == "" ? $"Where DocumentoCliente = '{documeto}'" : "";
+            parametros = documeto != "" && parametros == "" ? $"Where DocumentoCliente = '{documeto}'" : parametros ;
 
             using (var connection = _conn.Opener())
             {
