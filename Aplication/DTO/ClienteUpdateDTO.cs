@@ -1,4 +1,5 @@
-﻿using CadastroCliente.Optional;
+﻿using CadastroCliente.Domain.ValueObject;
+using CadastroCliente.Optional;
 using CadastroCliente.Utils;
 using System.ComponentModel.DataAnnotations;
 
@@ -11,8 +12,8 @@ namespace CadastroCliente.Aplication.DTO
         private Optional<DateTime> _dataCliente = Optional<DateTime>.NotProvided();
         private OptionalRef<string> _contatoCliente = OptionalRef<string>.NotProvided();
         private OptionalRef<string> _enderecoCliente = OptionalRef<string>.NotProvided();
-        private OptionalRef<string> _documentoCliente = OptionalRef<string>.NotProvided();
-        private Optional<bool> _statusCliente = Optional<bool>.NotProvided();
+        private OptionalRef<DocumentoGeral> _documentoCliente  = OptionalRef<DocumentoGeral>.NotProvided();
+        private Optional<bool> _statusCliente  = Optional<bool>.NotProvided();
 
 
         public Optional<int> IdCliente
@@ -39,9 +40,9 @@ namespace CadastroCliente.Aplication.DTO
         {
             get => _enderecoCliente; set => _enderecoCliente = value ?? OptionalRef<string>.FromNullValue();
         }
-        public OptionalRef<string> DocumentoCliente
+        public OptionalRef<DocumentoGeral> DocumentoCliente
         {
-            get => _documentoCliente; set => _documentoCliente = value ?? OptionalRef<string>.FromNullValue();
+            get => _documentoCliente; set => _documentoCliente = value ?? OptionalRef<DocumentoGeral>.FromNullValue();
         }
 
         public Optional<bool> StatusCliente
@@ -53,34 +54,37 @@ namespace CadastroCliente.Aplication.DTO
         {
             if (ContatoCliente.HasChange)
             {
-                if (ContatoCliente.Value.Any(char.IsLetter))
+                if (ContatoCliente.Value!.Any(char.IsLetter))
                     yield return
-                    new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ContatoCliente) });
-                else if (ContatoCliente.Value.Length > 17 || ContatoCliente.Value.Length < 13)
+                    new ValidationResult("O Número de Telefone não pode possuir Letras", [nameof(ContatoCliente)]);
+                else if (ContatoCliente.Value!.Length > 17 || ContatoCliente.Value.Length < 13)
                     yield return
-                    new ValidationResult("Tamanho do Telefone deverá ser entre 13 e 17 caracteres", new[] { nameof(ContatoCliente) });
+                    new ValidationResult("Tamanho do Telefone deverá ser entre 13 e 17 caracteres", [nameof(ContatoCliente)]);
             }
             if (DocumentoCliente.HasChange)
             {
-                if (DocumentoCliente.Value.Any(char.IsLetter))
+                if (DocumentoCliente.GetType() == typeof(DocumentoGeral))
                     yield return
-                    new ValidationResult("O Documento CPF/CNPJ não pode possuir Letras", new[] { nameof(DocumentoCliente) });
+                    new ValidationResult("O Documento CPF/CNPJ é inválido", [nameof(DocumentoCliente)]);
+                else if (DocumentoCliente.Value!.Documento.Any(char.IsLetter))
+                    yield return
+                    new ValidationResult("O Documento CPF/CNPJ não pode possuir Letras", [nameof(DocumentoCliente)]);
 
-                else if (DocumentoCliente.Value.Length > 20 || DocumentoCliente.Value.Length < 14)
+                else if (DocumentoCliente.Value.Documento.Length > 20 || DocumentoCliente.Value.Documento.Length < 14)
                     yield return
-                    new ValidationResult("Tamanho do Documento CPF/CNPJ deverá ser entre 14 e 20 caracteres", new[] { nameof(DocumentoCliente) });
+                    new ValidationResult("Tamanho do Documento CPF/CNPJ deverá ser entre 14 e 20 caracteres", [nameof(DocumentoCliente)]);
             }
             if (NomeCliente.HasChange)
             {
-                if (NomeCliente.Value.Length < 3 || DocumentoCliente.Value.Length > 60)
+                if (NomeCliente.Value!.Length < 3 || NomeCliente.Value.Length > 60)
                     yield return
-                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 60 caracteres", new[] { nameof(NomeCliente) });
+                        new ValidationResult("Tamanho do Nome deverá ser entre 3 a 60 caracteres", [nameof(NomeCliente)]);
             }
             if (EnderecoCliente.HasChange)
             {
-                if (EnderecoCliente.Value.Length < 3 || EnderecoCliente.Value.Length > 60)
+                if (EnderecoCliente.Value!.Length < 3 || EnderecoCliente.Value.Length > 60)
                     yield return
-                        new ValidationResult("Tamanho do Endereço deverá ser entre 3 a 60 caracteres", new[] { nameof(EnderecoCliente) });
+                        new ValidationResult("Tamanho do Endereço deverá ser entre 3 a 60 caracteres", [nameof(EnderecoCliente)]);
             }
 
             yield break;

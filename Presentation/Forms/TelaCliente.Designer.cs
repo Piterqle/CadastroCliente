@@ -361,7 +361,7 @@
         private DataGridView dg_Clientes;
         private Panel panel1;
         private Button bt_editar;
-        private Button bt_cancelar;
+        //private Button bt_cancelar;
         private Button bt_alterarStatus;
         private DataGridViewTextBoxColumn col_NomeCliente;
         private DataGridViewTextBoxColumn col_DataCliente;

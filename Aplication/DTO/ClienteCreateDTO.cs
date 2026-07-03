@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CadastroCliente.Domain.ValueObject;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CadastroCliente.Aplication.DTO
 {
@@ -31,9 +34,8 @@ namespace CadastroCliente.Aplication.DTO
         public string EnderecoCliente { get; set; } = string.Empty;
 
         // Documento é obrigatório e com caracteres limitado
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Documento do Cliente é obrigatório")]
-        [StringLength(20, MinimumLength = 13, ErrorMessage = "Tamanho do Documento deverá ser entre 16 a 20 caracteres")]
-        public string DocumentoCliente { get; set; } = string.Empty;
+        [Required(ErrorMessage = "Documento do Cliente é obrigatório")]
+        public DocumentoGeral? DocumentoCliente { get; set;}
 
         // Status do Cliente é apenas obrigatório
         [Required(ErrorMessage = "Status do Cliente é obrigatório")]
@@ -41,12 +43,19 @@ namespace CadastroCliente.Aplication.DTO
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
+
             if (ClienteContato.Any(char.IsLetter))
                 yield return
-                new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ClienteContato) });
-            if (DocumentoCliente.Any(char.IsLetter))
+                new ValidationResult("O Número de Telefone não pode possuir Letras", [nameof(ClienteContato)]);
+
+            if (DocumentoCliente == null)
+                yield break;
+            if (DocumentoCliente.GetType() != typeof(DocumentoGeral))
                 yield return
-                new ValidationResult("O Documento CPF/CNPJ não pode possuir Letras", new[] { nameof(DocumentoCliente) });
+                new ValidationResult("O Documento CPF/CNPJ é inválido", [nameof(DocumentoCliente)]);
+            if (DocumentoCliente.Documento.Any(char.IsLetter))
+                yield return
+                new ValidationResult("O Documento CPF/CNPJ não pode possuir Letras", [nameof(DocumentoCliente)]);
 
             yield break;
         }

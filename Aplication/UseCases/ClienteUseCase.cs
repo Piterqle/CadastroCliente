@@ -23,7 +23,7 @@ namespace CadastroCliente.Aplication.UseCases
             var erros = clienteDTO.Validate();
             if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros)); }
 
-            var res = await _clienteRepository.GetClienteAsync(0, clienteDTO.DocumentoCliente);
+            var res = await _clienteRepository.GetClienteAsync(0, clienteDTO.DocumentoCliente!.Documento);
             if (res.Count > 0) throw new DuplicateWaitObjectException("Documento Já Existe");
 
             Cliente cliente = new Cliente(
@@ -56,7 +56,7 @@ namespace CadastroCliente.Aplication.UseCases
                 DateTime.Parse(res[0].DataCliente),
                 res[0].ContatoCliente,
                 res[0].EnderecoCliente,
-                res[0].DocumentoCliente,
+                new Domain.ValueObject.DocumentoGeral(res[0].DocumentoCliente),
                 res[0].StatusCliente == 1,
                 (int)res[0].IdCliente
 
@@ -66,15 +66,15 @@ namespace CadastroCliente.Aplication.UseCases
 
             if (clienteDTO.StatusCliente.HasChange) cliente.AlterarStatus();
 
-            if (clienteDTO.NomeCliente.HasChange) cliente.AlterarNome(clienteDTO.NomeCliente.Value);
+            if (clienteDTO.NomeCliente.HasChange) cliente.AlterarNome(clienteDTO.NomeCliente.Value!);
 
-            if (clienteDTO.ContatoCliente.HasChange) cliente.AlterarContato(clienteDTO.ContatoCliente.Value);
+            if (clienteDTO.ContatoCliente.HasChange) cliente.AlterarContato(clienteDTO.ContatoCliente.Value!);
 
             if (clienteDTO.DataCliente.HasChange) cliente.AlterarData(clienteDTO.DataCliente.Value ?? throw new Exception("Erro na Alteração da Data do Cliente"));
 
-            if (clienteDTO.EnderecoCliente.HasChange) cliente.AlterarEndereco(clienteDTO.EnderecoCliente.Value);
+            if (clienteDTO.EnderecoCliente.HasChange) cliente.AlterarEndereco(clienteDTO.EnderecoCliente.Value!);
 
-            if (clienteDTO.DocumentoCliente.HasChange) cliente.AlterarDocumento(clienteDTO.DocumentoCliente.Value);
+            if (clienteDTO.DocumentoCliente.HasChange) cliente.AlterarDocumento(clienteDTO.DocumentoCliente.Value!);
 
 
             await _clienteRepository.UpdateCliente(cliente);

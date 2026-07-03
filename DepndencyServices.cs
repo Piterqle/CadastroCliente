@@ -13,6 +13,17 @@ namespace CadastroCliente
         private static string? _connectionString;
         private static readonly object _lock = new object();
 
+        public static ServiceProvider Provider
+        {
+            get
+            {
+                if (_provider == null)
+                    throw new InvalidOperationException("Provider não carregado");
+
+                return _provider;
+            }
+        }
+
         public static void Configure(string connectionString)
         {
             lock (_lock)
@@ -44,6 +55,6 @@ namespace CadastroCliente
             return services.BuildServiceProvider();
         }
 
-        public static T Get<T>() where T : class => _provider.GetRequiredService<T>();
+        public static T Get<T>() where T : class => Provider.GetRequiredService<T>();
     }
 }

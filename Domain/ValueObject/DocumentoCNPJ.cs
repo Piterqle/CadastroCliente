@@ -2,7 +2,7 @@
 {
     internal class DocumentoCNPJ
     {
-        public string documento { get; private set; }
+        public string Documento { get; private set; }
 
         public DocumentoCNPJ(string documento)
         {
@@ -11,7 +11,7 @@
             {
                 throw new ArgumentException(errorMessage);
             }
-            this.documento = documento;
+            Documento = documento;
         }
 
 
@@ -22,13 +22,14 @@
             cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "").Trim();
 
             if (cnpj.Distinct().Count() == 1) return (false, "CNPJ não pode ter todos os dígitos iguais");
-
-
+            
+            
             int[] mult1 = { 5, 4, 3, 2, 9, 8, 7, 6, 5, 4, 3, 2 };
             int sum = 0;
+            string temCnpj = cnpj.Substring(0, 12);
 
-            for (int i = 0; i < 12; i++)
-                sum += int.Parse(cnpj[i].ToString()) * mult1[i];
+            for(int i = 0; i < 12; i++)
+                sum += int.Parse(temCnpj[i].ToString()) * mult1[i];
 
             int resto = sum % 11;
             int firstDigit = resto < 2 ? 0 : 11 - resto;
