@@ -1,4 +1,6 @@
-﻿namespace CadastroCliente.Aplication.Models
+﻿using CadastroCliente.Domain.ValueObject;
+
+namespace CadastroCliente.Aplication.Models
 {
     public class ClienteReadModel
     {

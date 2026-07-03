@@ -1,5 +1,6 @@
 ﻿using CadastroCliente.Aplication.Models;
 using CadastroCliente.Domain.Repositories;
+using CadastroCliente.Domain.ValueObject;
 
 namespace CadastroCliente.Aplication.UseCases
 {
@@ -26,7 +27,7 @@ namespace CadastroCliente.Aplication.UseCases
                     DataCliente = DateTime.Parse(cliente.DataCliente),
                     ContatoCliente = cliente.ContatoCliente,
                     EnderecoCliente = cliente.EnderecoCliente,
-                    DocumentoCliente = cliente.DocumentoCliente,
+                    DocumentoCliente = new DocumentoGeral(cliente.DocumentoCliente).Documento,
                     StatusCliente = cliente.StatusCliente == 1,
                     IdCliente = (int)cliente.IdCliente
                 }

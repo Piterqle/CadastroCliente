@@ -2,8 +2,8 @@
 {
     internal class DocumentoCPF
     {
-        public string Documento { get; private set; }
-
+        public string CPF { get; private set; }
+        public string? DocumentoNumerico { get; private set; }
 
         public DocumentoCPF(string documento)
         {
@@ -12,14 +12,14 @@
             {
                 throw new ArgumentException(errorMessage);
             }
-            Documento = documento;
+            CPF = documento;
         }
 
         private (bool, string) ValidarCPF(string cpf) // Retorna uma tupla indicando se o CPF é válido e uma mensagem de erro, se aplicável
         {
-            if (cpf.Length != 14) return (false, "CPF deve ter 14 caracteres no formato XXX.XXX.XXX-XX");
+            if (cpf == null ) return (false, "CPF inválido");
 
-            cpf = cpf.Replace(".", "").Replace("-", "").Trim();
+            if (cpf.Length == 14)  cpf = cpf.Replace(".", "").Replace("-", "").Trim();
 
             if (cpf.Distinct().Count() == 1) return (false, "CPF não pode ter todos os dígitos iguais");
 
@@ -45,6 +45,9 @@
             int digito2 = resto < 2 ? 0 : 11 - resto;
 
             if (int.Parse(cpf[10].ToString()) != digito2) return (false, "CPF inválido");
+
+
+            DocumentoNumerico = cpf; // Armazena apenas os números do CPF sem formatação
 
             // Implementação da validação do CPF
             // Retorna true se o CPF for válido, caso contrário, retorna false

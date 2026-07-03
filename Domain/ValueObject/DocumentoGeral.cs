@@ -7,6 +7,7 @@ namespace CadastroCliente.Domain.ValueObject
     public class DocumentoGeral
     {
         public string Documento { get; private set; }
+        public string? DocumentoNumerico { get; private set; }
 
         public DocumentoGeral(string documento)
         {
@@ -15,15 +16,17 @@ namespace CadastroCliente.Domain.ValueObject
                 throw new ArgumentException("Documento não pode ser nulo ou vazio.");
             }
             
-            if (documento.Length == 14)
+            if (documento.Length == 11)
             {
                 var documentoCPF = new DocumentoCPF(documento);
-                Documento = documentoCPF.Documento;
+                Documento = documentoCPF.CPF;
+                DocumentoNumerico = documentoCPF.DocumentoNumerico;
             }
-            else if (documento.Length == 18)
+            else if (documento.Length == 14)
             {
                 var documentoCNPJ = new DocumentoCNPJ(documento);
-                Documento = documentoCNPJ.Documento;
+                Documento = documentoCNPJ.CNPJ;
+                DocumentoNumerico = documentoCNPJ.DocumentoNumerico;
             }
             else
             {

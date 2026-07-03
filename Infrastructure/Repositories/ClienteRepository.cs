@@ -51,7 +51,7 @@ namespace CadastroCliente.Infrastructure.Repositories
                 parameters.Add("@DataCliente", cliente.DataCliente, DbType.Date);
                 parameters.Add("@ContatoCliente", cliente.ContatoCliente, DbType.String);
                 parameters.Add("@EnderecoCliente", cliente.EnderecoCliente, DbType.String);
-                parameters.Add("@DocumentoCliente", cliente.DocumentoCliente.Documento, DbType.String);
+                parameters.Add("@DocumentoCliente", cliente.DocumentoCliente.DocumentoNumerico, DbType.String);
                 parameters.Add("@StatusCliente", cliente.StatusCliente, DbType.Boolean);
 
                 connection.Execute(query, parameters);
@@ -82,7 +82,7 @@ namespace CadastroCliente.Infrastructure.Repositories
                 parameters.Add("@DataCliente", cliente.DataCliente, DbType.Date);
                 parameters.Add("@ContatoCliente", cliente.ContatoCliente, DbType.String);
                 parameters.Add("@EnderecoCliente", cliente.EnderecoCliente, DbType.String);
-                parameters.Add("@DocumentoCliente", cliente.DocumentoCliente.Documento, DbType.String);
+                parameters.Add("@DocumentoCliente", cliente.DocumentoCliente.DocumentoNumerico, DbType.String);
                 parameters.Add("@StatusCliente", cliente.StatusCliente, DbType.Boolean);
 
                 await connection.ExecuteAsync(query, parameters);

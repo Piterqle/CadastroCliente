@@ -2,7 +2,8 @@
 {
     internal class DocumentoCNPJ
     {
-        public string Documento { get; private set; }
+        public string CNPJ { get; private set; }
+        public string? DocumentoNumerico { get; private set; }
 
         public DocumentoCNPJ(string documento)
         {
@@ -11,15 +12,15 @@
             {
                 throw new ArgumentException(errorMessage);
             }
-            Documento = documento;
+            CNPJ = documento;
         }
 
 
         private (bool, string) ValidarCNPJ(string cnpj) // Retorna uma tupla indicando se o CNPJ é válido e uma mensagem de erro, se aplicável
         {
-            if (cnpj.Length != 18) return (false, "CNPJ deve ter 18 caracteres no formato XX.XXX.XXX/XXXX-XX");
+            if (cnpj == null) return (false, "CNPJ deve ter 18 caracteres no formato XX.XXX.XXX/XXXX-XX");
 
-            cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "").Trim();
+            if (cnpj.Length != 14) cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "").Trim();
 
             if (cnpj.Distinct().Count() == 1) return (false, "CNPJ não pode ter todos os dígitos iguais");
             
@@ -47,6 +48,8 @@
             int secondDigit = resto < 2 ? 0 : 11 - resto;
 
             if (int.Parse(cnpj[13].ToString()) != secondDigit) return (false, "CNPJ inválido");
+
+            DocumentoNumerico = cnpj; // Armazena apenas os números do CNPJ sem formatação
 
             // Implementação da validação do CNPJ
             // Retorna true se o CNPJ for válido, caso contrário, retorna false
