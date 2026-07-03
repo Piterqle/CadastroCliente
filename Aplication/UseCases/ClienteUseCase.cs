@@ -1,9 +1,6 @@
 ﻿using CadastroCliente.Aplication.DTO;
 using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CadastroCliente.Aplication.UseCases
 {
@@ -24,7 +21,7 @@ namespace CadastroCliente.Aplication.UseCases
             if (clienteDTO == null) { throw new ArgumentNullException(nameof(clienteDTO)); }
 
             var erros = clienteDTO.Validate();
-            if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros));  }
+            if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros)); }
 
             var res = await _clienteRepository.GetClienteAsync(0, clienteDTO.DocumentoCliente);
             if (res.Count > 0) throw new DuplicateWaitObjectException("Documento Já Existe");
@@ -38,13 +35,13 @@ namespace CadastroCliente.Aplication.UseCases
                 clienteDTO.StatusCliente
 
                 );
-            
+
             await _clienteRepository.AddCliente(cliente);
         }
 
 
         public async Task Update(int clienteId, ClienteUpdateDTO clienteDTO)
-            {
+        {
             if (clienteDTO == null) throw new Exception("É Necessário dados do Cliente");
 
             var erros = clienteDTO.Validate();
@@ -54,17 +51,17 @@ namespace CadastroCliente.Aplication.UseCases
 
             var res = await _clienteRepository.GetClienteAsync(clienteId);
 
-            Cliente cliente = new Cliente(
-                res[0].nomeCliente,
-                DateTime.Parse(res[0].dataCliente),
-                res[0].contatoCliente,
-                res[0].enderecoCliente,
-                res[0].documentoCliente,
-                res[0].statusCliente == 1,
-                (int)res[0].idCliente
+            Cliente cliente = new(
+                res[0].NomeCliente,
+                DateTime.Parse(res[0].DataCliente),
+                res[0].ContatoCliente,
+                res[0].EnderecoCliente,
+                res[0].DocumentoCliente,
+                res[0].StatusCliente == 1,
+                (int)res[0].IdCliente
 
             );
-            
+
             //Alterar todos os Dados se houver uma mudança no Começo
 
             if (clienteDTO.StatusCliente.HasChange) cliente.AlterarStatus();
@@ -76,11 +73,11 @@ namespace CadastroCliente.Aplication.UseCases
             if (clienteDTO.DataCliente.HasChange) cliente.AlterarData(clienteDTO.DataCliente.Value ?? throw new Exception("Erro na Alteração da Data do Cliente"));
 
             if (clienteDTO.EnderecoCliente.HasChange) cliente.AlterarEndereco(clienteDTO.EnderecoCliente.Value);
-            
+
             if (clienteDTO.DocumentoCliente.HasChange) cliente.AlterarDocumento(clienteDTO.DocumentoCliente.Value);
-            
-            
+
+
             await _clienteRepository.UpdateCliente(cliente);
-            }
+        }
     }
 }

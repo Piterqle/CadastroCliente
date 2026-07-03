@@ -1,7 +1,6 @@
 using CadastroCliente.Aplication.DTO;
 using CadastroCliente.Aplication.Facade;
 using CadastroCliente.Aplication.Models;
-using CadastroCliente.Infrastructure.Repositories;
 using System.Text.RegularExpressions;
 
 
@@ -10,15 +9,20 @@ namespace CadastroCliente
     public partial class TelaCliente : Form
     {
         private readonly ClienteFacade _clienteFacade;
-        private List<Object> clientes;
+
         public TelaCliente()
         {
-
             _clienteFacade = DependencyServices.Get<ClienteFacade>();
             InitializeComponent();
-            BuscarCliente();
         }
-        private async void BuscarCliente(object sender = null, EventArgs e = null)
+
+        private void TelaCliente_Load(object sender, EventArgs e)
+        {
+            BuscarCliente();
+            dtp_DataNasc.MaxDate = DateTime.Now;
+        }
+
+        private async void BuscarCliente()
         {
             var clientes = await _clienteFacade.BuscarCliente();
 
@@ -62,7 +66,8 @@ namespace CadastroCliente
         {
             TextBox txb = (TextBox)sender;
             txb.MaxLength = 15;
-            string documento = (string)txb.Text;
+
+            string documento = txb.Text;
             txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{5})(\d{4})$", "($1) $2-$3");
 
         }
@@ -114,23 +119,27 @@ namespace CadastroCliente
 
 
         // Criando Fução para Cancelar e Editar o Cliente.
-        private void UpdateClick(object sender, EventArgs e)
+        private async void UpdateClick(object sender, EventArgs e)
         {
-            if (dg_Clientes.SelectedRows.Count <= 0)
+
+            var selected = dg_Clientes.CurrentRow != null ? dg_Clientes.CurrentRow.DataBoundItem : throw new Exception("Clique em Uma linha");
+            ClienteReadModel? clienteSelect = (ClienteReadModel?)selected;
+
+            if (dg_Clientes.SelectedRows.Count <= 0 || clienteSelect == null)
             {
-                MessageBox.Show("Selecione uma Linha", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Selecione uma linha para edição", "Edição", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
             ;
 
             Button button = (Button)sender;
-            var selected = dg_Clientes.CurrentRow != null ? dg_Clientes.CurrentRow.DataBoundItem : throw new Exception("Clique em Uma linha");
 
-            ClienteReadModel clienteSelect = (ClienteReadModel)selected;
             if (button.Name == "bt_alterarStatus")
             {
-                ClienteUpdateDTO clienteUpdate = new ClienteUpdateDTO() { StatusCliente = !clienteSelect.StatusCliente };
-                _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdate);
+                ClienteUpdateDTO clienteUpdate = new() { StatusCliente = !clienteSelect.StatusCliente };
+
+                await _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdate);
+
                 BuscarCliente();
                 return;
             }
@@ -162,7 +171,7 @@ namespace CadastroCliente
 
             if (button.Name == "bt_confirm")
             {
-                ClienteUpdateDTO clienteUpdateDTO = new ClienteUpdateDTO()
+                ClienteUpdateDTO clienteUpdateDTO = new()
                 {
                     NomeCliente = txb_Nome.Text,
                     DataCliente = dtp_DataNasc.Value.ToLocalTime().Date,
@@ -170,7 +179,8 @@ namespace CadastroCliente
                     EnderecoCliente = txb_endereco.Text,
                     DocumentoCliente = txb_documento.Text
                 };
-                _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
+
+                await _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
             }
 
             txb_Nome.DataBindings.Clear();
@@ -205,9 +215,10 @@ namespace CadastroCliente
 
         private void Number_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(!char.IsDigit(e.KeyChar) 
-                && !char.IsControl(e.KeyChar)) 
-                    e.Handled = true; 
+            if (!char.IsDigit(e.KeyChar)
+                && !char.IsControl(e.KeyChar))
+                e.Handled = true;
         }
+
     }
 }

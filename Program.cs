@@ -16,7 +16,7 @@ namespace CadastroCliente
             string connectionString = "Data Source=Cliente.db";
             DependencyServices.Configure(connectionString);
             Application.Run(new TelaCliente());
-            
+
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CadastroCliente.Domain.ValueObject
+﻿namespace CadastroCliente.Domain.ValueObject
 {
     internal class DocumentoCPF
     {
@@ -30,13 +26,13 @@ namespace CadastroCliente.Domain.ValueObject
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
             int sum = 0;
 
-            for(int i = 0; i < 9; i++)
+            for (int i = 0; i < 9; i++)
                 sum += int.Parse(cpf[i].ToString()) * multiplicador1[i];
 
             int resto = sum % 11;
             int digito1 = resto < 2 ? 0 : 11 - resto;
-             
-            if(int.Parse(cpf[9].ToString()) != digito1) return (false, "CPF inválido");
+
+            if (int.Parse(cpf[9].ToString()) != digito1) return (false, "CPF inválido");
 
 
             int[] multiplicador2 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
@@ -48,7 +44,7 @@ namespace CadastroCliente.Domain.ValueObject
             resto = sum % 11;
             int digito2 = resto < 2 ? 0 : 11 - resto;
 
-            if(int.Parse(cpf[10].ToString()) != digito2) return (false, "CPF inválido");
+            if (int.Parse(cpf[10].ToString()) != digito2) return (false, "CPF inválido");
 
             // Implementação da validação do CPF
             // Retorna true se o CPF for válido, caso contrário, retorna false

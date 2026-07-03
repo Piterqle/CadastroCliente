@@ -1,20 +1,17 @@
 ﻿using CadastroCliente.Aplication.Models;
-using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CadastroCliente.Aplication.UseCases
 {
     public class ClienteReadUseCase
     {
         private readonly IClienteRepository _clienteRepository;
-        public ClienteReadUseCase(IClienteRepository clienteRepository) {
+        public ClienteReadUseCase(IClienteRepository clienteRepository)
+        {
             _clienteRepository = clienteRepository;
         }
 
-        public async Task<List<ClienteReadModel>>Read(int ID)
+        public async Task<List<ClienteReadModel>> Read(int ID)
         {
             var res = await _clienteRepository.GetClienteAsync(ID);
 
@@ -22,22 +19,22 @@ namespace CadastroCliente.Aplication.UseCases
             var clientes = new List<ClienteReadModel>();
             foreach (var cliente in res)
             {
-                Console.WriteLine(cliente.statusCliente.GetType());
+                Console.WriteLine(cliente.StatusCliente.GetType());
                 clientes.Add(new ClienteReadModel()
                 {
-                    NomeCliente = cliente.nomeCliente,
-                    DataCliente = DateTime.Parse(cliente.dataCliente),
-                    ContatoCliente = cliente.contatoCliente,
-                    EnderecoCliente = cliente.enderecoCliente,
-                    DocumentoCliente = cliente.documentoCliente,
-                    StatusCliente = cliente.statusCliente == 1,
-                    IdCliente = (int)cliente.idCliente
+                    NomeCliente = cliente.NomeCliente,
+                    DataCliente = DateTime.Parse(cliente.DataCliente),
+                    ContatoCliente = cliente.ContatoCliente,
+                    EnderecoCliente = cliente.EnderecoCliente,
+                    DocumentoCliente = cliente.DocumentoCliente,
+                    StatusCliente = cliente.StatusCliente == 1,
+                    IdCliente = (int)cliente.IdCliente
                 }
-                  ); 
+                  );
             }
 
             return clientes;
         }
-            
+
     }
 }

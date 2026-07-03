@@ -1,9 +1,6 @@
 ﻿using CadastroCliente.Optional;
 using CadastroCliente.Utils;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace CadastroCliente.Aplication.DTO
 {
@@ -14,8 +11,8 @@ namespace CadastroCliente.Aplication.DTO
         private Optional<DateTime> _dataCliente = Optional<DateTime>.NotProvided();
         private OptionalRef<string> _contatoCliente = OptionalRef<string>.NotProvided();
         private OptionalRef<string> _enderecoCliente = OptionalRef<string>.NotProvided();
-        private OptionalRef<string> _documentoCliente  = OptionalRef<string>.NotProvided();
-        private Optional<bool> _statusCliente  = Optional<bool>.NotProvided();
+        private OptionalRef<string> _documentoCliente = OptionalRef<string>.NotProvided();
+        private Optional<bool> _statusCliente = Optional<bool>.NotProvided();
 
 
         public Optional<int> IdCliente
@@ -25,7 +22,7 @@ namespace CadastroCliente.Aplication.DTO
 
         public OptionalRef<string> NomeCliente
         {
-            get => _nomeCliente; set => _nomeCliente = value ?? OptionalRef<string>.FromNullValue(); 
+            get => _nomeCliente; set => _nomeCliente = value ?? OptionalRef<string>.FromNullValue();
         }
 
         public Optional<DateTime> DataCliente
@@ -54,7 +51,8 @@ namespace CadastroCliente.Aplication.DTO
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if(ContatoCliente.HasChange){
+            if (ContatoCliente.HasChange)
+            {
                 if (ContatoCliente.Value.Any(char.IsLetter))
                     yield return
                     new ValidationResult("O Número de Telefone não pode possuir Letras", new[] { nameof(ContatoCliente) });
@@ -85,7 +83,7 @@ namespace CadastroCliente.Aplication.DTO
                         new ValidationResult("Tamanho do Endereço deverá ser entre 3 a 60 caracteres", new[] { nameof(EnderecoCliente) });
             }
 
-            yield break; 
+            yield break;
         }
     }
 }

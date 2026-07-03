@@ -1,9 +1,6 @@
 ﻿using CadastroCliente.Aplication.DTO;
 using CadastroCliente.Aplication.Models;
 using CadastroCliente.Aplication.UseCases;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CadastroCliente.Aplication.Facade
 {
@@ -11,9 +8,9 @@ namespace CadastroCliente.Aplication.Facade
     {
         private readonly ClienteUseCase _ClienteUseCase;
         private readonly ClienteReadUseCase _ClienteReadUseCase;
-        
 
-        
+
+
         public ClienteFacade()
         {
             _ClienteUseCase = DependencyServices.Get<ClienteUseCase>();

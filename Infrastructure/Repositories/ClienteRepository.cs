@@ -1,11 +1,6 @@
-﻿using CadastroCliente.Aplication.Models;
-using CadastroCliente.Domain.Entities;
+﻿using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
 using Dapper;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Text;
 
 namespace CadastroCliente.Infrastructure.Repositories
 {
@@ -21,13 +16,13 @@ namespace CadastroCliente.Infrastructure.Repositories
         public async Task<dynamic> GetClienteAsync(int ID, string documeto = "")
         {
             string parametros = ID > 0 ? $"Where IdCliente = {ID}" : "";
-            parametros = documeto != "" && parametros == "" ? $"Where DocumentoCliente = '{documeto}'" : parametros ;
+            parametros = documeto != "" && parametros == "" ? $"Where DocumentoCliente = '{documeto}'" : parametros;
 
             using (var connection = _conn.Opener())
             {
 
                 // Query que busca uma pessoa em específico ou puxar todas. 
-                string query = "Select NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, Cast(statusCliente as Bit) statusCliente, IdCliente from Cliente " + parametros;
+                string query = "Select NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, Cast(StatusCliente as Bit) StatusCliente, IdCliente from Cliente " + parametros;
 
                 var res = await connection.QueryAsync(query);
 
@@ -41,7 +36,7 @@ namespace CadastroCliente.Infrastructure.Repositories
 
             using (var connection = _conn.Opener())
             {
-                
+
                 // Query para adicionar os Clientes
                 const string query = @"Insert Into Cliente
                     (NomeCliente, DataCliente, ContatoCliente, EnderecoCliente, DocumentoCliente, StatusCliente)

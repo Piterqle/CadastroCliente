@@ -1,19 +1,11 @@
 ﻿using Microsoft.Data.Sqlite;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CadastroCliente
 {
-    public class Database
+    public class Database(string connString)
     {
-        private readonly string connString;
-        private SqliteConnection _connection;
-
-        public Database(string connString)
-        {
-            this.connString = connString;
-        }
+        private readonly string connString = connString;
+        private SqliteConnection? _connection = null;
 
         private SqliteConnection Connection
         {
@@ -23,7 +15,7 @@ namespace CadastroCliente
                 {
                     _connection = new SqliteConnection(connString);
                     _connection.Open();
-                    ExecuteQuery();
+                    CreateTableIfNotExists();
                 }
                 return _connection;
 
@@ -33,24 +25,25 @@ namespace CadastroCliente
 
         public SqliteConnection Opener() => Connection;
 
-        public void ExecuteQuery()
+        private void CreateTableIfNotExists()
         {
-           
-            var command = _connection.CreateCommand();
-            command.CommandText = """"
-                        Create Table If Not Exists Cliente(
-                            IdCliente INTEGER Primary Key ,
-                            NomeCliente varchar(250) Not Null,
-                            DataCliente date Not Null,
-                            ContatoCliente varchar(13) Not Null,
-                            EnderecoCliente varchar(250) Not Null,
-                            DocumentoCliente varchar(18) Not Null,
-                            StatusCliente boolean Not Null
-                        )
-                        """";
+
+            var command = Connection.CreateCommand();
+
+            command.CommandText =
+                "CREATE TABLE IF NOT EXISTS Cliente( \n" +
+                "    IdCliente INTEGER PRIMARY KEY, \n" +
+                "    NomeCliente VARCHAR(250) NOT NULL, \n" +
+                "    DataCliente DATE NOT NULL, \n" +
+                "    ContatoCliente VARCHAR(13) NOT NULL, \n" +
+                "    EnderecoCliente VARCHAR(250) NOT NULL, \n" +
+                "    DocumentoCliente VARCHAR(18) NOT NULL, \n" +
+                "    StatusCliente BOOLEAN NOT NULL \n" +
+                ")";
+
             command.ExecuteNonQuery();
-            MessageBox.Show("Query Executada com Sucesso");
+
         }
-        
+
     }
 }

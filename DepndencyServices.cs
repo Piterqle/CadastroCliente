@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using CadastroCliente.Aplication.Facade;
+﻿using CadastroCliente.Aplication.Facade;
 using CadastroCliente.Aplication.UseCases;
 using CadastroCliente.Domain.Repositories;
 using CadastroCliente.Infrastructure.Repositories;
@@ -47,6 +44,6 @@ namespace CadastroCliente
             return services.BuildServiceProvider();
         }
 
-        public static T Get<T>() where T : class => _provider.GetRequiredService<T>(); 
-    }   
+        public static T Get<T>() where T : class => _provider.GetRequiredService<T>();
+    }
 }
