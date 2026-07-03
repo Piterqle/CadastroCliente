@@ -26,7 +26,7 @@ namespace CadastroCliente.Aplication.UseCases
             var erros = clienteDTO.Validate();
             if (erros.Count > 0) { throw new Exception(string.Join(Environment.NewLine, erros));  }
 
-            var res = await _clienteRepository.GetClienteAsync(0, clienteDTO.DocumentoCliente);
+            var res = await _clienteRepository.GetClienteAsync(0, clienteDTO.DocumentoCliente.Documento);
             if (res.Count > 0) throw new DuplicateWaitObjectException("Documento Já Existe");
 
             Cliente cliente = new Cliente(

@@ -3,6 +3,7 @@ using CadastroCliente.Domain.Entities;
 using CadastroCliente.Domain.Repositories;
 using Dapper;
 using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Text;
@@ -48,7 +49,17 @@ namespace CadastroCliente.Infrastructure.Repositories
                     Values
                     (@NomeCliente, @DataCliente, @ContatoCliente, @EnderecoCliente, @DocumentoCliente, @StatusCliente)";
 
-                connection.Execute(query, cliente);
+                
+                DynamicParameters parameters = new DynamicParameters();
+
+                parameters.Add("@NomeCliente", cliente.NomeCliente, DbType.String);
+                parameters.Add("@DataCliente", cliente.DataCliente, DbType.Date);
+                parameters.Add("@ContatoCliente", cliente.ContatoCliente, DbType.String);
+                parameters.Add("@EnderecoCliente", cliente.EnderecoCliente, DbType.String);
+                parameters.Add("@DocumentoCliente", cliente.DocumentoCliente.Documento, DbType.String);
+                parameters.Add("@StatusCliente", cliente.StatusCliente, DbType.Boolean);
+
+                connection.Execute(query, parameters);
 
             }
 
@@ -69,7 +80,17 @@ namespace CadastroCliente.Infrastructure.Repositories
                     DocumentoCliente = @DocumentoCliente,
                     StatusCliente = @StatusCliente WHERE idCliente = @IdCliente ";
 
-                await connection.ExecuteAsync(query, cliente);
+                DynamicParameters parameters = new DynamicParameters();
+
+                parameters.Add("@IdCliente", cliente.IdCliente, DbType.Int32);
+                parameters.Add("@NomeCliente", cliente.NomeCliente, DbType.String);
+                parameters.Add("@DataCliente", cliente.DataCliente, DbType.Date);
+                parameters.Add("@ContatoCliente", cliente.ContatoCliente, DbType.String);
+                parameters.Add("@EnderecoCliente", cliente.EnderecoCliente, DbType.String);
+                parameters.Add("@DocumentoCliente", cliente.DocumentoCliente.Documento, DbType.String);
+                parameters.Add("@StatusCliente", cliente.StatusCliente, DbType.Boolean);
+
+                await connection.ExecuteAsync(query, parameters);
             }
             MessageBox.Show("Cliente Alterado com Sucesso", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

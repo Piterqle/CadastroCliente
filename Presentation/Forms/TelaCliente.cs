@@ -1,6 +1,7 @@
 using CadastroCliente.Aplication.DTO;
 using CadastroCliente.Aplication.Facade;
 using CadastroCliente.Aplication.Models;
+using CadastroCliente.Domain.ValueObject;
 using CadastroCliente.Infrastructure.Repositories;
 using System.Text.RegularExpressions;
 
@@ -44,7 +45,7 @@ namespace CadastroCliente
                     ClienteContato = contato,
                     DataCliente = dataNasc,
                     EnderecoCliente = endereco,
-                    DocumentoCliente = documento,
+                    DocumentoCliente = new DocumentoGeral(documento),
                     StatusCliente = true
                 };
 
@@ -168,7 +169,7 @@ namespace CadastroCliente
                     DataCliente = dtp_DataNasc.Value.ToLocalTime().Date,
                     ContatoCliente = txb_Contato.Text,
                     EnderecoCliente = txb_endereco.Text,
-                    DocumentoCliente = txb_documento.Text
+                    DocumentoCliente = new DocumentoGeral(txb_documento.Text)
                 };
                 _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
             }

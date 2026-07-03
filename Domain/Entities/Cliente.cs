@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CadastroCliente.Domain.ValueObject;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -11,15 +12,15 @@ namespace CadastroCliente.Domain.Entities
         public DateTime DataCliente { get; private set; }
         public string ContatoCliente { get; private set; }
         public string EnderecoCliente { get; private set; }
-        public string DocumentoCliente { get; private set; }
+        public DocumentoGeral DocumentoCliente { get; private set; }
         public bool  StatusCliente { get; private set;  }
 
         public Cliente(
             string nomeCliente, 
             DateTime dataCliente, 
             string contatoCliente, 
-            string enderecoCliente, 
-            string documentoCliente, 
+            string enderecoCliente,
+            DocumentoGeral documentoCliente, 
             bool statusCliente,
             int idCliente = 0
            )
@@ -43,11 +44,11 @@ namespace CadastroCliente.Domain.Entities
         
         public void AlterarEndereco(string novoEndereco) => EnderecoCliente = novoEndereco;
         
-        public void AlterarDocumento(string novoDocumento) => DocumentoCliente = novoDocumento;
+        public void AlterarDocumento(DocumentoGeral novoDocumento) => DocumentoCliente = novoDocumento;
 
         public void AlterarStatus()
         {
-            this.StatusCliente = !(this.StatusCliente);
+            StatusCliente = !StatusCliente;
         }
     }
 }
