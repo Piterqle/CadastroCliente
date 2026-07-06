@@ -287,20 +287,23 @@
             // txb_Contato
             // 
             txb_Contato.Font = new Font("Segoe UI", 11F);
-            txb_Contato.Location = new Point(232, 56);
+            txb_Contato.Location = new Point(233, 56);
             txb_Contato.Mask = "(00) 00000-0000";
             txb_Contato.Name = "txb_Contato";
             txb_Contato.Size = new Size(196, 27);
             txb_Contato.TabIndex = 2;
+            txb_Contato.Leave += txb_Contato_Leave;
             // 
             // txb_documento
             // 
+            txb_documento.BeepOnError = true;
             txb_documento.Font = new Font("Segoe UI", 11F);
             txb_documento.Location = new Point(232, 134);
             txb_documento.Mask = "000,000,000-00";
             txb_documento.Name = "txb_documento";
             txb_documento.Size = new Size(196, 27);
             txb_documento.TabIndex = 7;
+            txb_documento.Leave += txb_documento_Leave;
             // 
             // TelaCliente
             // 

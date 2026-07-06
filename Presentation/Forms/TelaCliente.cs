@@ -68,12 +68,12 @@ namespace CadastroCliente
         private void rb_Changed(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
-            
+
             if (rb_Cnpj.Checked) txb_documento.Mask = "00.000.000/0000-00";
             else if (rb_Cpf.Checked) txb_documento.Mask = "000.000.000-00";
             else txb_documento.Mask = "";
-        
-        }   
+
+        }
 
         private void dg_Clientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -194,6 +194,39 @@ namespace CadastroCliente
             if (!char.IsDigit(e.KeyChar)
                 && !char.IsControl(e.KeyChar))
                 e.Handled = true;
+        }
+
+        private void txb_Contato_Leave(object sender, EventArgs e)
+        {
+            MaskedTextBox maskedTextBox = (MaskedTextBox)sender;
+
+            string text = maskedTextBox.Text.Replace("_", null).Replace("(", null).Replace(")", null).Replace("-", null).Trim();
+            if (text.Length < 12 && text != "")
+            {
+                maskedTextBox.BeepOnError = true;
+                MessageBox.Show("Número de telefone inválido. Por favor, insira um número válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                maskedTextBox.Focus();
+                return;
+            }
+
+            maskedTextBox.BeepOnError = false;
+        }
+
+        private void txb_documento_Leave(object sender, EventArgs e)
+        {
+            MaskedTextBox maskedText = (MaskedTextBox)sender;
+            try
+            {
+                string text = maskedText.Text.Replace("_", null).Replace(".", null).Replace("-", null).Replace("/", null).Trim();
+                if (string.IsNullOrWhiteSpace(text)) return;
+
+                string documneto = new DocumentoGeral(text).Documento;
+            }
+            catch
+            {
+                MessageBox.Show("Documento CPF/CPNJ inválido", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                maskedText.Focus();
+            }
         }
     }
 }
