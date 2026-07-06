@@ -165,7 +165,7 @@ namespace CadastroCliente
 
                     await _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
                 }
-                catch
+                catch (Exception ex)
                 {
                     if (ex.Message == "The input string ' ' was not in a correct format.")
                     {
