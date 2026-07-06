@@ -38,21 +38,25 @@ namespace CadastroCliente
         {
             try
             {
-                string nome = txb_Nome.Text;
-                string contato = txb_Contato.Text;
+                string? nome = txb_Nome.Text.ToString();
+                string? contato = txb_Contato.Text;
                 DateTime dataNasc = dtp_DataNasc.Value.ToLocalTime().Date;
-                string endereco = txb_endereco.Text;
-                string documento = txb_documento.Text;
+                string? endereco = txb_endereco.Text;
+                string? documento = txb_documento.Text;
 
                 var cliente = new ClienteCreateDTO()
                 {
                     NomeCliente = nome,
-                    ClienteContato = (contato.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "")).Trim(),
+                    ClienteContato = (contato).Trim(),
                     DataCliente = dataNasc,
                     EnderecoCliente = endereco,
-                    DocumentoCliente = new DocumentoGeral(documento),
+                    DocumentoCliente = new DocumentoGeral(documento.Trim()),
                     StatusCliente = true
                 };
+
+                var erros = cliente.Validate();
+
+                if (erros.Count > 0) throw new Exception(string.Join(Environment.NewLine, erros.Select(x => x.ErrorMessage)));
 
                 await _clienteFacade.AdicionarCliente(cliente);
 
@@ -60,12 +64,7 @@ namespace CadastroCliente
             }
             catch (Exception ex)
             {
-                if (ex.Message == "The input string ' ' was not in a correct format.")
-                {
-                    MessageBox.Show("Preenche os campos corretamente", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-                MessageBox.Show("Não foi possível adicionar o Cliente", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -153,26 +152,26 @@ namespace CadastroCliente
             if (button.Name == "bt_confirm")
             {
                 try
-                { 
+                {
                     ClienteUpdateDTO clienteUpdateDTO = new()
                     {
                         NomeCliente = txb_Nome.Text,
                         DataCliente = dtp_DataNasc.Value.ToLocalTime().Date,
-                        ContatoCliente = (txb_Contato.Text.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "")).Trim(),
+                        ContatoCliente = txb_Contato.Text,
                         EnderecoCliente = txb_endereco.Text,
-                        DocumentoCliente = new DocumentoGeral(txb_documento.Text)
+                        DocumentoCliente = new DocumentoGeral(txb_documento.Text.Trim())
                     };
 
+                    var erros = clienteUpdateDTO.Validate();
+
+                    if(erros.Count > 0 ) throw new Exception(string.Join(Environment.NewLine, erros.Select(x => x.ErrorMessage)));  
+
                     await _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
+
                 }
                 catch (Exception ex)
                 {
-                    if (ex.Message == "The input string ' ' was not in a correct format.")
-                    {
-                        MessageBox.Show("Preenche os campos corretamente", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
-                    MessageBox.Show("Não foi possível editar o Cliente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -217,7 +216,7 @@ namespace CadastroCliente
         {
             MaskedTextBox maskedTextBox = (MaskedTextBox)sender;
 
-            string text = maskedTextBox.Text.Replace("_", null).Replace("(", null).Replace(")", null).Replace("-", null).Trim();
+            string text = maskedTextBox.Text;
             if (text.Length < 12 && text != "")
             {
                 maskedTextBox.BeepOnError = true;
@@ -234,7 +233,7 @@ namespace CadastroCliente
             MaskedTextBox maskedText = (MaskedTextBox)sender;
             try
             {
-                string text = maskedText.Text.Replace("_", null).Replace(".", null).Replace("-", null).Replace("/", null).Trim();
+                string text = maskedText.Text;
                 if (string.IsNullOrWhiteSpace(text)) return;
 
                 string documneto = new DocumentoGeral(text).Documento;

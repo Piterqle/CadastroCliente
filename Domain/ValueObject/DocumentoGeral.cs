@@ -15,14 +15,14 @@ namespace CadastroCliente.Domain.ValueObject
             {
                 throw new ArgumentException("Documento não pode ser nulo ou vazio.");
             }
-            
-            if (documento.Length <= 14)
+
+            if (documento.Length <= 14 && documento.Length >= 11)
             {
                 var documentoCPF = new DocumentoCPF(documento);
                 Documento = documentoCPF.CPF;
                 DocumentoNumerico = documentoCPF.DocumentoNumerico;
             }
-            else if (documento.Length > 14)
+            else if (documento.Length > 14 && documento.Length < 18)
             {
                 var documentoCNPJ = new DocumentoCNPJ(documento);
                 Documento = documentoCNPJ.CNPJ;
