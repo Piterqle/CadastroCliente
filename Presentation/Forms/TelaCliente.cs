@@ -60,7 +60,12 @@ namespace CadastroCliente
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                if (ex.Message == "The input string ' ' was not in a correct format.")
+                {
+                    MessageBox.Show("Preenche os campos corretamente", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                MessageBox.Show("Não foi possível adicionar o Cliente", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -147,16 +152,28 @@ namespace CadastroCliente
 
             if (button.Name == "bt_confirm")
             {
-                ClienteUpdateDTO clienteUpdateDTO = new()
-                {
-                    NomeCliente = txb_Nome.Text,
-                    DataCliente = dtp_DataNasc.Value.ToLocalTime().Date,
-                    ContatoCliente = (txb_Contato.Text.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "")).Trim(),
-                    EnderecoCliente = txb_endereco.Text,
-                    DocumentoCliente = new DocumentoGeral(txb_documento.Text)
-                };
+                try
+                { 
+                    ClienteUpdateDTO clienteUpdateDTO = new()
+                    {
+                        NomeCliente = txb_Nome.Text,
+                        DataCliente = dtp_DataNasc.Value.ToLocalTime().Date,
+                        ContatoCliente = (txb_Contato.Text.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "")).Trim(),
+                        EnderecoCliente = txb_endereco.Text,
+                        DocumentoCliente = new DocumentoGeral(txb_documento.Text)
+                    };
 
-                await _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
+                    await _clienteFacade.AlterarDadosCliente(clienteSelect.IdCliente, clienteUpdateDTO);
+                }
+                catch
+                {
+                    if (ex.Message == "The input string ' ' was not in a correct format.")
+                    {
+                        MessageBox.Show("Preenche os campos corretamente", "ERRO", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    MessageBox.Show("Não foi possível editar o Cliente", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
 
             txb_Nome.DataBindings.Clear();
