@@ -13,7 +13,6 @@ O projeto segue os princípios do **DDD**, organizado em camadas como:
 * **Domain** → Entidades, regras de negócio e contratos.
 * **Application** → Casos de uso e orquestração.
 * **Infrastructure** → Persistência de dados com SQLite e implementação dos repositórios.
-* **API** → Endpoints para comunicação com a aplicação.
 
 ## 🛠️ Tecnologias
 
