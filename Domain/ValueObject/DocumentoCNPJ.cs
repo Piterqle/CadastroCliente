@@ -12,7 +12,7 @@
             {
                 throw new ArgumentException(errorMessage);
             }
-            CNPJ = documento;
+            CNPJ = Convert.ToUInt64(DocumentoNumerico).ToString(@"00.000.000/0000-00");
         }
 
 
@@ -20,7 +20,7 @@
         {
             if (cnpj == null) return (false, "CNPJ deve ter 18 caracteres no formato XX.XXX.XXX/XXXX-XX");
 
-            if (cnpj.Length != 14) cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "").Trim();
+            if (cnpj.Length == 18) cnpj = cnpj.Replace(".", "").Replace("-", "").Replace("/", "").Trim();
 
             if (cnpj.Distinct().Count() == 1) return (false, "CNPJ não pode ter todos os dígitos iguais");
             

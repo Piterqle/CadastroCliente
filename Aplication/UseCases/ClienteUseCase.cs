@@ -56,7 +56,7 @@ namespace CadastroCliente.Aplication.UseCases
                 DateTime.Parse(res[0].DataCliente),
                 res[0].ContatoCliente,
                 res[0].EnderecoCliente,
-                new Domain.ValueObject.DocumentoGeral(res[0].DocumentoCliente.DocumentoNumerico),
+                new Domain.ValueObject.DocumentoGeral(res[0].DocumentoCliente),
                 res[0].StatusCliente == 1,
                 (int)res[0].IdCliente
 

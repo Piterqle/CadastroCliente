@@ -20,12 +20,11 @@ namespace CadastroCliente.Aplication.UseCases
             var clientes = new List<ClienteReadModel>();
             foreach (var cliente in res)
             {
-                Console.WriteLine(cliente.StatusCliente.GetType());
                 clientes.Add(new ClienteReadModel()
                 {
                     NomeCliente = cliente.NomeCliente,
                     DataCliente = DateTime.Parse(cliente.DataCliente),
-                    ContatoCliente = cliente.ContatoCliente,
+                    ContatoCliente = Convert.ToUInt64(cliente.ContatoCliente.Trim()).ToString(@"(00) 00000-0000"),
                     EnderecoCliente = cliente.EnderecoCliente,
                     DocumentoCliente = new DocumentoGeral(cliente.DocumentoCliente).Documento,
                     StatusCliente = cliente.StatusCliente == 1,

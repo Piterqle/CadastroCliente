@@ -25,7 +25,7 @@ namespace CadastroCliente.Aplication.DTO
 
         // Telefone é obrigatório e com caracteres limitado
         [Required(AllowEmptyStrings = false, ErrorMessage = "Número de telfone é obrigatório")]
-        [StringLength(17, MinimumLength = 13, ErrorMessage = "Número de telefone inválido")]
+        [StringLength(17, MinimumLength = 11, ErrorMessage = "Número de telefone inválido")]
         public string ClienteContato { get; set; } = string.Empty;
 
         // Endereço é obrigatório e com caracteres limitado

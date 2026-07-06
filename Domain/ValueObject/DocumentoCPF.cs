@@ -4,6 +4,7 @@
     {
         public string CPF { get; private set; }
         public string? DocumentoNumerico { get; private set; }
+        
 
         public DocumentoCPF(string documento)
         {
@@ -12,7 +13,7 @@
             {
                 throw new ArgumentException(errorMessage);
             }
-            CPF = documento;
+            CPF = Convert.ToUInt64(DocumentoNumerico).ToString(@"000\.000\.000\-00");
         }
 
         private (bool, string) ValidarCPF(string cpf) // Retorna uma tupla indicando se o CPF é válido e uma mensagem de erro, se aplicável

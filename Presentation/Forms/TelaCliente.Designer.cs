@@ -31,13 +31,11 @@
             lb_Nome = new Label();
             txb_Nome = new TextBox();
             lb_Contato = new Label();
-            txb_Contato = new TextBox();
             lb_DataNasc = new Label();
             dtp_DataNasc = new DateTimePicker();
             label1 = new Label();
             txb_endereco = new TextBox();
             lb_Documento = new Label();
-            txb_documento = new TextBox();
             rb_Cpf = new RadioButton();
             rb_Cnpj = new RadioButton();
             bt_adicionar = new Button();
@@ -51,6 +49,8 @@
             panel1 = new Panel();
             bt_alterarStatus = new Button();
             bt_editar = new Button();
+            txb_Contato = new MaskedTextBox();
+            txb_documento = new MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)dg_Clientes).BeginInit();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -75,7 +75,7 @@
             txb_Nome.Name = "txb_Nome";
             txb_Nome.PlaceholderText = "xxxxxx";
             txb_Nome.Size = new Size(196, 27);
-            txb_Nome.TabIndex = 2;
+            txb_Nome.TabIndex = 1;
             // 
             // lb_Contato
             // 
@@ -87,18 +87,6 @@
             lb_Contato.Size = new Size(147, 21);
             lb_Contato.TabIndex = 5;
             lb_Contato.Text = "Telefone de Contato";
-            // 
-            // txb_Contato
-            // 
-            txb_Contato.Anchor = AnchorStyles.Top;
-            txb_Contato.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txb_Contato.Location = new Point(232, 56);
-            txb_Contato.Name = "txb_Contato";
-            txb_Contato.PlaceholderText = "(xx) xxxxx-xxxx";
-            txb_Contato.Size = new Size(196, 27);
-            txb_Contato.TabIndex = 4;
-            txb_Contato.TextChanged += txb_contato_textChanged;
-            txb_Contato.KeyPress += Number_KeyPress;
             // 
             // lb_DataNasc
             // 
@@ -119,7 +107,7 @@
             dtp_DataNasc.Location = new Point(435, 60);
             dtp_DataNasc.Name = "dtp_DataNasc";
             dtp_DataNasc.Size = new Size(196, 23);
-            dtp_DataNasc.TabIndex = 8;
+            dtp_DataNasc.TabIndex = 2;
             // 
             // label1
             // 
@@ -140,7 +128,7 @@
             txb_endereco.MaxLength = 60;
             txb_endereco.Name = "txb_endereco";
             txb_endereco.Size = new Size(196, 27);
-            txb_endereco.TabIndex = 9;
+            txb_endereco.TabIndex = 4;
             // 
             // lb_Documento
             // 
@@ -153,18 +141,6 @@
             lb_Documento.TabIndex = 12;
             lb_Documento.Text = "Documeto";
             // 
-            // txb_documento
-            // 
-            txb_documento.Anchor = AnchorStyles.Top;
-            txb_documento.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txb_documento.Location = new Point(232, 134);
-            txb_documento.Name = "txb_documento";
-            txb_documento.PlaceholderText = "xxx.xxx.xxx-xx";
-            txb_documento.Size = new Size(196, 27);
-            txb_documento.TabIndex = 11;
-            txb_documento.TextChanged += txb_documento_TextChanged;
-            txb_documento.KeyPress += Number_KeyPress;
-            // 
             // rb_Cpf
             // 
             rb_Cpf.Anchor = AnchorStyles.Top;
@@ -173,7 +149,7 @@
             rb_Cpf.Location = new Point(320, 109);
             rb_Cpf.Name = "rb_Cpf";
             rb_Cpf.Size = new Size(46, 19);
-            rb_Cpf.TabIndex = 15;
+            rb_Cpf.TabIndex = 5;
             rb_Cpf.TabStop = true;
             rb_Cpf.Text = "CPF";
             rb_Cpf.UseVisualStyleBackColor = true;
@@ -185,7 +161,7 @@
             rb_Cnpj.Location = new Point(376, 109);
             rb_Cnpj.Name = "rb_Cnpj";
             rb_Cnpj.Size = new Size(52, 19);
-            rb_Cnpj.TabIndex = 16;
+            rb_Cnpj.TabIndex = 6;
             rb_Cnpj.Text = "CNPJ";
             rb_Cnpj.UseVisualStyleBackColor = true;
             rb_Cnpj.CheckedChanged += rb_Changed;
@@ -308,23 +284,41 @@
             bt_editar.UseVisualStyleBackColor = false;
             bt_editar.Click += UpdateClick;
             // 
+            // txb_Contato
+            // 
+            txb_Contato.Font = new Font("Segoe UI", 11F);
+            txb_Contato.Location = new Point(232, 56);
+            txb_Contato.Mask = "(00) 00000-0000";
+            txb_Contato.Name = "txb_Contato";
+            txb_Contato.Size = new Size(196, 27);
+            txb_Contato.TabIndex = 2;
+            // 
+            // txb_documento
+            // 
+            txb_documento.Font = new Font("Segoe UI", 11F);
+            txb_documento.Location = new Point(232, 134);
+            txb_documento.Mask = "000,000,000-00";
+            txb_documento.Name = "txb_documento";
+            txb_documento.Size = new Size(196, 27);
+            txb_documento.TabIndex = 7;
+            // 
             // TelaCliente
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txb_documento);
+            Controls.Add(txb_Contato);
             Controls.Add(panel1);
             Controls.Add(bt_adicionar);
             Controls.Add(rb_Cnpj);
             Controls.Add(rb_Cpf);
             Controls.Add(lb_Documento);
-            Controls.Add(txb_documento);
             Controls.Add(label1);
             Controls.Add(txb_endereco);
             Controls.Add(dtp_DataNasc);
             Controls.Add(lb_DataNasc);
             Controls.Add(lb_Contato);
-            Controls.Add(txb_Contato);
             Controls.Add(lb_Nome);
             Controls.Add(txb_Nome);
             MaximizeBox = false;
@@ -348,13 +342,11 @@
         private Label lb_Nome;
         private TextBox txb_Nome;
         private Label lb_Contato;
-        private TextBox txb_Contato;
         private Label lb_DataNasc;
         private DateTimePicker dtp_DataNasc;
         private Label label1;
         private TextBox txb_endereco;
         private Label lb_Documento;
-        private TextBox txb_documento;
         private RadioButton rb_Cpf;
         private RadioButton rb_Cnpj;
         private Button bt_adicionar;
@@ -369,5 +361,7 @@
         private DataGridViewTextBoxColumn col_EnderecoCliente;
         private DataGridViewTextBoxColumn col_DocumentoClietne;
         private DataGridViewTextBoxColumn col_StatusCliente;
+        private MaskedTextBox txb_Contato;
+        private MaskedTextBox txb_documento;
     }
 }

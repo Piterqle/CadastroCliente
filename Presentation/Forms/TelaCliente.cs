@@ -47,7 +47,7 @@ namespace CadastroCliente
                 var cliente = new ClienteCreateDTO()
                 {
                     NomeCliente = nome,
-                    ClienteContato = contato,
+                    ClienteContato = (contato.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "")).Trim(),
                     DataCliente = dataNasc,
                     EnderecoCliente = endereco,
                     DocumentoCliente = new DocumentoGeral(documento),
@@ -64,42 +64,16 @@ namespace CadastroCliente
             }
         }
 
-        private void txb_contato_textChanged(object sender, EventArgs e)
-        {
-            TextBox txb = (TextBox)sender;
-            txb.MaxLength = 15;
-
-            string documento = txb.Text;
-            txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{5})(\d{4})$", "($1) $2-$3");
-
-        }
-
-        private void txb_documento_TextChanged(object sender, EventArgs e)
-        {
-            TextBox txb = (TextBox)sender;
-            if (rb_Cpf.Checked)
-            {
-                txb.MaxLength = 14;
-                string documento = txb.Text;
-                txb.Text = Regex.Replace(documento, @"^(\d{3})(\d{3})(\d{3})(\d{2})$", "$1.$2.$3-$4");
-
-            }
-            else if (rb_Cnpj.Checked)
-            {
-                txb.MaxLength = 18;
-                string documento = txb.Text;
-                txb.Text = Regex.Replace(documento, @"^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$", "$1.$2.$3/$4-$5");
-            }
-
-        }
 
         private void rb_Changed(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
-
-            if (!radioButton.Checked) txb_documento.PlaceholderText = "xxx.xxx.xxx-xx";
-            else if (radioButton.Checked) txb_documento.PlaceholderText = "xx.xxx.xxx/xxxx-xx";
-        }
+            
+            if (rb_Cnpj.Checked) txb_documento.Mask = "00.000.000/0000-00";
+            else if (rb_Cpf.Checked) txb_documento.Mask = "000.000.000-00";
+            else txb_documento.Mask = "";
+        
+        }   
 
         private void dg_Clientes_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -177,7 +151,7 @@ namespace CadastroCliente
                 {
                     NomeCliente = txb_Nome.Text,
                     DataCliente = dtp_DataNasc.Value.ToLocalTime().Date,
-                    ContatoCliente = txb_Contato.Text,
+                    ContatoCliente = (txb_Contato.Text.Replace("-", "").Replace("(", "").Replace(")", "").Replace(" ", "")).Trim(),
                     EnderecoCliente = txb_endereco.Text,
                     DocumentoCliente = new DocumentoGeral(txb_documento.Text)
                 };
@@ -221,6 +195,5 @@ namespace CadastroCliente
                 && !char.IsControl(e.KeyChar))
                 e.Handled = true;
         }
-
     }
 }

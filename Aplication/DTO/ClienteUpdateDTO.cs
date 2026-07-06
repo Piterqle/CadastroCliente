@@ -57,7 +57,7 @@ namespace CadastroCliente.Aplication.DTO
                 if (ContatoCliente.Value!.Any(char.IsLetter))
                     yield return
                     new ValidationResult("O Número de Telefone não pode possuir Letras", [nameof(ContatoCliente)]);
-                else if (ContatoCliente.Value!.Length > 17 || ContatoCliente.Value.Length < 13)
+                else if (ContatoCliente.Value!.Length > 17 || ContatoCliente.Value.Length < 11)
                     yield return
                     new ValidationResult("Tamanho do Telefone deverá ser entre 13 e 17 caracteres", [nameof(ContatoCliente)]);
             }
