@@ -292,6 +292,7 @@
             txb_Contato.Name = "txb_Contato";
             txb_Contato.Size = new Size(196, 27);
             txb_Contato.TabIndex = 2;
+            txb_Contato.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             txb_Contato.Leave += txb_Contato_Leave;
             // 
             // txb_documento
@@ -303,6 +304,7 @@
             txb_documento.Name = "txb_documento";
             txb_documento.Size = new Size(196, 27);
             txb_documento.TabIndex = 7;
+            txb_documento.TextMaskFormat = MaskFormat.ExcludePromptAndLiterals;
             txb_documento.Leave += txb_documento_Leave;
             // 
             // TelaCliente
